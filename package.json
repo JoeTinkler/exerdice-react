@@ -1,0 +1,58 @@
+{
+  "name": "exerdice",
+  "version": "1.0.0",
+  "description": "A React/TypeScript/Vite WASM app for rolling dice and tracking activities",
+  "author": "Joe Tinkler",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoeTinkler/exerdice-wasm"
+  },
+  "bugs": {
+    "url": "https://github.com/JoeTinkler/exerdice-wasm/issues"
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "drizzle-orm": "^0.44.5",
+    "drizzle-zod": "^0.8.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.3",
+    "sqlocal": "^0.14.2",
+    "styled-components": "^6.1.19",
+    "use-debounce": "^10.0.5",
+    "vite-plugin-svgr": "^4.3.0",
+    "zod": "^4.1.5"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^9.1.4",
+    "@storybook/addon-links": "^9.1.4",
+    "@storybook/react-vite": "^9.1.4",
+    "@storybook/test-runner": "^0.23.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "drizzle-kit": "^0.31.4",
+    "eslint": "^9.30.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-storybook": "^9.1.4",
+    "prop-types": "^15.8.1",
+    "react-docgen-typescript-plugin": "^1.0.8",
+    "storybook": "^9.1.4",
+    "vite": "^7.0.2",
+    "vitest": "^3.2.4"
+  }
+}

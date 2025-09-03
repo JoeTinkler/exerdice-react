@@ -1,0 +1,63 @@
+import styled from "styled-components";
+import { Card } from "@components/ui/Card";
+import { Dice } from "@components/ui/Dice";
+import HeartIconAsset from '@assets/activity/heart.svg?react';
+
+export const ManualLink = styled.span`
+  text-decoration: underline;
+`;
+
+export const DiceBox = styled(Card)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  padding: 20px 10px;
+  margin: 20px 0;
+`;
+
+export const RolledDice = styled(Dice)`
+  font-size: 20px;
+  width: 55px;
+  height: 55px;
+`;
+
+export const ResultBox = styled.div`
+  background: ${({ theme }) => theme.card.background};
+  padding: 15px;
+  border-radius: 12px;
+  margin: 10px 0;
+  text-align: center;
+  box-shadow: 0 1px 12px ${({ theme }) => theme.highlightColour};
+`;
+
+export const ResultText = styled.h3`
+  margin: 5px 0;
+  font-weight: bold;
+
+  strong {
+    color: ${({ theme }) => theme.highlightColour};
+    font-size: 28px;
+  }
+`;
+
+export const ButtonRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 15px 0;
+`;
+
+export const InfoRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+`;
+
+export const TipIcon = styled(HeartIconAsset)`
+  width: 24px;
+  height; 24px;
+  margin-right: 5px;
+`;

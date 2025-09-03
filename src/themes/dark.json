@@ -1,0 +1,40 @@
+{
+  "titleColour": "#ffffff",
+  "background": "#1a1a1a",
+  "colour": "#ffffff",
+  "secondaryColour": "#bbb",
+  "highlightColour": "#6200ee",
+  "highlightHoverColour": "#3700b3",
+  "button": {
+    "background": "#333",
+    "colour": "#ffffff"
+  },
+  "card": {
+    "background": "#1e1e1e",
+    "colour": "#ffffff"
+  },
+  "dice": {
+    "background": "#2a2a2a",
+    "colour": "#ffffff"
+  },
+  "input": {
+    "background": "#222",
+    "colour": "#ffffff"
+  },
+  "calendar": {
+    "background": "#98FB98",
+    "colour": "#000",
+    "secondaryBackground": "#1c1c1c",
+    "secondaryColour": "#444",
+    "restBackground": "#276CF5",
+    "restColour": "#fff"
+  },
+  "listItems": {
+    "background": "#1e1e1e",
+    "colour": "#ffffff",
+    "selectedBackground": "#6200ee",
+    "selectedColour": "white",
+    "secondaryBackground": "rgb(19, 22.5, 30.5)",
+    "secondaryColour": "#ffffff"
+  }
+}
