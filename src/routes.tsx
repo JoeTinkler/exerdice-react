@@ -1,23 +1,27 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ExerciseTimeTracker } from './routes/landing';
+import { LandingRoute } from './routes/landing';
 import { DashboardRoute } from './routes/dashboard';
 import { HistoryRoute } from './routes/history';
 import { RollRoute } from './routes/roll';
 import { LogRoute } from './routes/log';
 import { ProfileRoute } from './routes/profile';
+import { HistoryDataProvider } from '@providers/history';
+import { Providers } from '@providers/providers';
+import { ActivityTypesProvider } from '@providers/activityTypes';
+import { DashboardProvider } from '@providers/dashboard';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <ExerciseTimeTracker />,
+    element: <LandingRoute />,
   },
   {
     path: '/dashboard',
-    element: <DashboardRoute />,
+    element: (<Providers providers={[DashboardProvider, ActivityTypesProvider]}><DashboardRoute /></Providers>)
   },
   {
     path: '/history',
-    element: <HistoryRoute />,
+    element: (<Providers providers={[HistoryDataProvider, ActivityTypesProvider]}><HistoryRoute /></Providers>)
   },
   {
     path: '/roll',
@@ -25,16 +29,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/log',
-    element: <LogRoute />
+    element: (<Providers providers={[ActivityTypesProvider]}><LogRoute /></Providers>)
   },
   {
     path: '/log/:id',
-    element: <LogRoute />
+    element: (<Providers providers={[ActivityTypesProvider]}><LogRoute /></Providers>)
   },
   {
 
     path: '/profile',
-    element: <ProfileRoute />
+    element: (<Providers providers={[ActivityTypesProvider]}><ProfileRoute /></Providers>),
   }
 ]);
 

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { WheelContainer, Wheel, WheelItem, WheelLabelWrapper, WheelIcon } from "@components/ui/ActivityWheel";
 import { Modal } from "@components/Modal";
 import { ModalSize } from "@components/ui/common/Modal";
 import { Button } from "@components/ui/common/Button";
 import { ActivityType } from "@db/schema";
-import { useActivityTypes } from "@hooks/useActivityTypes";
+import { ActivityTypesContext } from "@providers/activityTypes";
 
 type PropTypes = {
   onAccept: (type: ActivityType) => void;
@@ -16,7 +16,7 @@ export const ActivityWheelModal: React.FC<PropTypes> = ({ onAccept, onCancel, is
   const [spinning, setSpinning] = useState(false);
   const [selectedType, setSelectedType] = useState<ActivityType | undefined>();
   const [rotation, setRotation] = useState(0);
-  const { activityTypes } = useActivityTypes();
+  const { activityTypes } = useContext(ActivityTypesContext);
 
   const handleRoll = () => {
     setSpinning(true);

@@ -5,8 +5,9 @@ import SwimIconAsset from '@assets/activity/swim.svg?react';
 import HeartIconAsset from '@assets/activity/heart.svg?react';
 import RunIconAsset from '@assets/activity/run.svg?react';
 import WalkIconAsset from '@assets/activity/walk.svg?react';
-import { useActivityTypes } from "@hooks/useActivityTypes";
 import { ActivityIcon as IconPath } from "@db/schema";
+import { useContext } from "react";
+import { ActivityTypesContext } from "@providers/activityTypes";
 
 const StyledIcon = (svg: React.FC<React.SVGProps<SVGSVGElement>>) => styled(svg)`
   width: 24px;
@@ -26,7 +27,7 @@ type PropTypes = {
 }
 
 export const ActivityTypeIcon: React.FC<PropTypes> = ({ id }) => {
-  const { activityTypes } = useActivityTypes();
+  const { activityTypes } = useContext(ActivityTypesContext);
   const type = activityTypes?.find((t) => t.id === id);
   return <ActivityIcon icon={type?.icon} />
 }

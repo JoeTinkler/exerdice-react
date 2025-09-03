@@ -16,14 +16,14 @@ export const ToggleButton = styled.button<{ $active?: boolean }>`
   text-decoration: none;
 `;
 
-export const SummaryHeader = styled.div`
+export const SummaryHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: bold;
   margin-bottom: 10px;
 `;
 
-export const SummaryMetrics = styled.div`
+export const SummaryMetricsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 12px;

@@ -2,8 +2,10 @@ import styled from "styled-components";
 import DiceIconAsset from "@assets/icons/d20.svg?react";
 import HistoryIconAsset from "@assets/icons/clock-reverse.svg?react";
 import ProfileIconAsset from "@assets/icons/profile-circle.svg?react";
+import FireIconAsset from "@assets/icons/fire.svg?react";
 import { Row } from "@components/ui/common/Layout";
 import { Dice } from "@components/ui/Dice";
+import { Paragraph } from "../common/Text";
 
 export const CompletedLabel = styled.span`
   font-size: 12px;
@@ -54,6 +56,11 @@ export const ChallengeText = styled.p`
   }
 `;
 
+export const RemainingRestsLabel = styled(Paragraph)`
+  text-align: center;
+  margin-bottom: 15px;
+`
+
 export const ModifierDice = styled(Dice)`
   width: 24px;
   height: 24px;
@@ -71,3 +78,4 @@ const DashboardIcon = (svg: React.FC<React.SVGProps<SVGSVGElement>>) => styled(s
 export const DiceIcon = DashboardIcon(DiceIconAsset);
 export const HistoryIcon = DashboardIcon(HistoryIconAsset);
 export const ProfileIcon = DashboardIcon(ProfileIconAsset);
+export const FireIcon = DashboardIcon(FireIconAsset);

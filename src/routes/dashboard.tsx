@@ -1,10 +1,10 @@
 import { GlobalStyle } from "@components/Global";
 import { NavBar } from "@components/NavBar";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { RouteWrapper } from "@components/ui/common/Route";
 import { Grid, Row } from "@components/ui/common/Layout";
 import { Header } from "@components/ui/common/Header";
-import { ChallengeText, CompletedLabel, DiceIcon, DiceRow, HistoryIcon, Metric, MetricLabel, MetricNumber, Metrics, ModifierDice, NotRolledLabel, ProfileIcon } from "@components/ui/routes/Dashboard";
+import { ChallengeText, CompletedLabel, DiceIcon, DiceRow, HistoryIcon, Metric, MetricLabel, MetricNumber, Metrics, ModifierDice, NotRolledLabel, ProfileIcon, RemainingRestsLabel } from "@components/ui/routes/Dashboard";
 import { Card, CardTitle, GridCard } from "@components/ui/Card";
 import { ProgressBar } from "@components/ProgressBar";
 import { Paragraph } from "@components/ui/common/Text";
@@ -13,18 +13,15 @@ import { Button, NavigationButton } from "@components/ui/common/Button";
 import { Today } from "@components/Today";
 import { Dialog } from "@components/ui/common/Dialog";
 import { startOfDayUnix } from "@helpers/date";
-import { useTodaysRolls } from "@hooks/useTodaysRoll";
-import { useTodaysStats } from "@hooks/useTodayStats";
-import { useIsRestDay } from "@hooks/useIsRestDay";
 import { RestCard } from "@components/RestCard";
+import { DashboardContext } from "@providers/dashboard";
+import { ProfileContext } from "@providers/profile";
+import { StreakCard } from "@components/StreakCard";
 
 export const DashboardRoute: React.FC = () => {
+  const { streakStats, weekRestCount, isRestDay, addRest, todaysRoll, goal, stats, hasRolled, completionPercentage } = useContext(DashboardContext);
   const [showRest, setShowRest] = useState(false);
-  const { isRestDay, insert: addRest } = useIsRestDay();
-  const { todaysRoll, goal } = useTodaysRolls();
-  const { stats } = useTodaysStats();
-  const hasRolled = goal > 0;
-  const completionPercentage =  hasRolled ? (stats.minutes / goal) * 100 : 0;
+  const { profile } = useContext(ProfileContext);
 
   return (
     <>
@@ -47,6 +44,7 @@ export const DashboardRoute: React.FC = () => {
                 <Metric><MetricNumber>{stats.activities ?? 0}</MetricNumber><MetricLabel>Activities</MetricLabel></Metric>
               </Metrics>
             </Card>
+            {streakStats.current > 1 && <StreakCard />}
             <Card>
               <Row>
                 <CardTitle>Today's Roll</CardTitle>
@@ -71,12 +69,17 @@ export const DashboardRoute: React.FC = () => {
           </>
         }
         {!isRestDay && hasRolled && <NavigationButton to="/log" $primary={true} $size={'large'}>Log Exercise</NavigationButton>}
-        {!hasRolled && !isRestDay && <Button onClick={() => setShowRest(true)}>Take A Rest Day</Button>}
+        {!hasRolled && !isRestDay && profile.weeklyRestDays > weekRestCount &&
+          <>
+            <Button onClick={() => setShowRest(true)}>Take A Rest Day</Button>
+            <RemainingRestsLabel>{profile.weeklyRestDays - weekRestCount} / {profile.weeklyRestDays} rest days remaining</RemainingRestsLabel>
+          </>
+        }
         <Grid>
           <GridCard to="/history">
             <HistoryIcon />
-            <strong>Exercise History</strong>
-            View past workouts
+            <strong>Activity History</strong>
+            View past activities
           </GridCard>
           <GridCard to="/profile">
             <ProfileIcon />

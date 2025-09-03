@@ -31,6 +31,11 @@ Designed to used on mobile devices
 4. **Deploy**
 
     Run `yarn test-storybook` or run `yarn watch-test-storybook` to see test result.
+
+## Demo
+
+[Live demo](https://exerdice-a2cf7.web.app/)
+
 ## Screenshot
 
 !["Screenshot roll page"](/screenshots/Screenshot_Roll.png)

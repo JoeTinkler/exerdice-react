@@ -1,9 +1,9 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ActivityTypeIcon } from "@components/activity/ActivityIcon";
 import { Activity } from "@db/schema";
-import { useActivityTypes } from "@hooks/useActivityTypes";
+import { ActivityTypesContext } from "@providers/activityTypes";
 
 const ActivityCardContainer = styled(Link)`
   color: ${({ theme }) => theme.colour};
@@ -72,7 +72,7 @@ const formatTime = (timestamp: number) => {
 }
 
 export const ActivityCard: React.FC<PropsWithChildren<PropTypes>> = ({ activity }) => {
-  const { activityTypes } = useActivityTypes();
+  const { activityTypes } = useContext(ActivityTypesContext);
 
   return (
     <ActivityCardContainer to={`/log/${activity.id}`}>

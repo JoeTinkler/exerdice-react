@@ -5,7 +5,7 @@ import { useState } from "react";
 import { db } from "@db/db";
 import { useSQLocalQuery } from "./useSQLocalQuery";
 
-type TodaysStats = {
+export type TodaysStats = {
   minutes: number;
   activities: number;
 }

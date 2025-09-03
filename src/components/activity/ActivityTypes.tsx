@@ -1,15 +1,15 @@
 import { Button } from "@components/ui/common/Button"
 import { Card, CardTitle } from "@components/ui/Card"
 import { Label, Paragraph } from "@components/ui/common/Text";
-import { useActivityTypes } from "@hooks/useActivityTypes"
 import { ActivityIcon } from "./ActivityIcon";
 import { Column, Row } from "@components/ui/common/Layout";
 import { Input, Select } from "@components/ui/Form";
 import styled from "styled-components";
 import BinAsset from '@assets/icons/bin.svg?react';
 import { ActivityType } from "@db/schema";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useContext, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { ActivityTypesContext } from "@providers/activityTypes";
 
 const BinIcon = styled(BinAsset)`
   width: 15px;
@@ -105,7 +105,7 @@ const ActivityTypeItem: React.FC<PropTypes> = ({ activityType, update, remove })
 }
 
 export const ActivityTypes: React.FC = () => {
-  const { activityTypes, loading, error, insert, update, remove } = useActivityTypes();
+  const { activityTypes, loading, error, insert, update, remove } = useContext(ActivityTypesContext);
   return (
     <Card>
       <CardTitle>Activity Types {loading && <Loader>Loading...</Loader> }</CardTitle>

@@ -16,7 +16,7 @@ type RollRow = {
   totalRoll: number;
 }
 
-type HistoryStats = ActivityRow & RollRow;
+export type HistoryChartData = ActivityRow & RollRow;
 
 export const useHistoryChartData = () => {
   const end = unixTimestamp();
@@ -47,15 +47,12 @@ export const useHistoryChartData = () => {
     await rollsRefresh();
   }
 
-  console.log({ start, end, daysBetween: daysBetween(start, end) })
-
   const days = Array.from(Array(daysBetween(start, end)+1)).map((_, i) => {
     const date = toDbFormatUnix(addDaysUnix(start, i));
     const ad = activitiesData.find((d) => d.date === date);
     const rd = rollsData.find((d) => d.date === date);
-    return { date, ...ad, ...rd }
-  }, [] as HistoryStats[]);
+    return { date, ...ad, ...rd } as HistoryChartData
+  });
 
-  console.log(days);
   return { data: days, loading: activitiesLoading || rollsLoading, error: activitiesError ?? rollsError, refresh }
 }

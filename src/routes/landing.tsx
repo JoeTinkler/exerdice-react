@@ -122,7 +122,7 @@ const Caption = styled.div`
   font-size: 14px;
 `;
 
-export function ExerciseTimeTracker() {
+export const LandingRoute: React.FC = () => {
   return (
     <>
       <GlobalStyle />

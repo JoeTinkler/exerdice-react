@@ -2,9 +2,12 @@ import styled from "styled-components";
 import { Card } from "@components/ui/Card";
 import { Dice } from "@components/ui/Dice";
 import HeartIconAsset from '@assets/activity/heart.svg?react';
+import { Paragraph } from "../common/Text";
 
-export const ManualLink = styled.span`
+export const ManualLink = styled(Paragraph)`
   text-decoration: underline;
+  text-align: center;
+  margin-top: 10px;
 `;
 
 export const DiceBox = styled(Card)`

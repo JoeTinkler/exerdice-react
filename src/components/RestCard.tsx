@@ -2,6 +2,9 @@ import CoffeeIconAsset from '@assets/icons/coffee.svg?react';
 import { Card, CardTitle } from '@components/ui/Card';
 import { Paragraph } from '@components/ui/common/Text';
 import { toRGBA } from "@helpers/colour";
+import { DashboardContext } from '@providers/dashboard';
+import { ProfileContext } from '@providers/profile';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
@@ -27,12 +30,17 @@ const RestIcon = styled(CoffeeIconAsset)`
   box-shadow: 0 0px 36px ${({ theme }) => theme.highlightColour};
 `;
 
-export const RestCard: React.FC = () => (
-  <StyledCard>
-    <CardTitle>It's a rest day</CardTitle>
-    <Paragraph>Kick back and take it easy until tomorrow</Paragraph>
-    <RestIconWrapper>
-      <RestIcon />
-    </RestIconWrapper>
-  </StyledCard>
-)
+export const RestCard: React.FC = () => {
+  const { weekRestCount } = useContext(DashboardContext);
+  const { profile } = useContext(ProfileContext);
+  return (
+    <StyledCard>
+      <CardTitle>It's a rest day</CardTitle>
+      <Paragraph>Kick back and take it easy until tomorrow</Paragraph>
+      <Paragraph>Used {weekRestCount}/{profile.weeklyRestDays} rest days this week</Paragraph>
+      <RestIconWrapper>
+        <RestIcon />
+      </RestIconWrapper>
+    </StyledCard>
+  );
+}

@@ -56,7 +56,8 @@ export const RollRoute: React.FC = () => {
           <Header>Today's Roll</Header>
           <Today />
         </Row>
-        <SubHeader>Feeling lucky? Let the dice decide your exercise duration today! <ManualLink onClick={() => setShowManual(true)}>Or set your roll manually</ManualLink></SubHeader>
+        <SubHeader>Feeling lucky? Let the dice decide your activity duration!</SubHeader>
+        <ManualLink onClick={() => setShowManual(true)}>Or set your roll manually</ManualLink>
 
         {isRestDay && <RestCard />}
 
@@ -89,9 +90,8 @@ export const RollRoute: React.FC = () => {
         }
 
         <Card>
-          <CardTitle>Today's Workout</CardTitle>
           <InfoRow>
-            <span>Duration:</span>
+            <span>Total:</span>
             <strong>{minutesRolled} minutes</strong>
           </InfoRow>
           <InfoRow>
@@ -107,12 +107,12 @@ export const RollRoute: React.FC = () => {
         <Card>
           <CardTitle>
             <Row>
-              <TipIcon /> Workout Tip
+              <TipIcon /> Tip
             </Row>
           </CardTitle>
           <Paragraph>
-            Rolling higher numbers? Try splitting your workout into multiple
-            sessions throughout the day!
+            Rolling higher numbers? Try splitting your total into multiple
+            activities throughout the day!
           </Paragraph>
         </Card>
       </RouteWrapper>

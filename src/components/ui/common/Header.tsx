@@ -7,7 +7,7 @@ export const Header = styled.h1`
 `;
 
 export const SubHeader = styled.h2`
-  font-size: 16px;
+  font-size: 15px;
   margin-top: 20px;
   font-weight: bold;
 `;

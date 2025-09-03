@@ -5,7 +5,7 @@ import { activities } from "@db/schema";
 import { timestampDate, whereStartEnd } from "@helpers/sqlite";
 import { avg, countDistinct, sum } from "drizzle-orm";
 
-type HistoryStats = {
+export type HistoryStats = {
   minutes: number;
   dailyAverage: number;
   activities: number

@@ -10,14 +10,14 @@ import { Row } from "@components/ui/common/Layout";
 import { RouteWrapper } from "@components/ui/common/Route";
 import { Label, Paragraph } from "@components/ui/common/Text";
 import { unixTimestamp } from "@helpers/date";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { HistoryLink, RecentActivities, SliderContainer } from "@components/ui/routes/Log";
 import { useActivity } from "@hooks/useActivity";
 import { Activity, ActivityType } from "@db/schema";
 import { useRecentActivities } from "@hooks/useActivities";
-import { useActivityTypes } from "@hooks/useActivityTypes";
 import { ActivityWheelModal } from "@components/activity/ActivityWheel";
+import { ActivityTypesContext } from "@providers/activityTypes";
 
 const parseDateInputValue = (value: string) => {
   var date = new Date(value);
@@ -41,7 +41,7 @@ export const LogRoute: React.FC = () => {
   const { activity: activityData, loading, error, save, remove } = useActivity(id ? parseInt(id) : undefined);
   const [activity, setActivity] = useState<Activity>(activityData ?? { timestamp: unixTimestamp(), intensity: 3 });
 
-  const { activityTypes } = useActivityTypes();
+  const { activityTypes } = useContext(ActivityTypesContext);
   const { recentActivities } = useRecentActivities();
 
   useEffect(() => {

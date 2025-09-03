@@ -1,5 +1,5 @@
-import { useHistoryChartData } from "@hooks/useHistoryChartData";
-import { useEffect, useRef } from "react";
+import { HistoryDataContext } from "@providers/history";
+import { useContext, useEffect, useRef } from "react";
 import styled, { useTheme } from "styled-components";
 
 const ChartCanvas = styled.canvas`
@@ -105,7 +105,7 @@ const draw = (ctx: any, cnv: HTMLCanvasElement, data: number[][], colours: Chart
 
 export const HistoryChart: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);
-  const { data } = useHistoryChartData();
+  const { chartData } = useContext(HistoryDataContext);
   const theme = useTheme();
 
   const colours: ChartColours = {
@@ -123,11 +123,11 @@ export const HistoryChart: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const redData = data.map((d) => d.totalMinutes ?? 0);
-    const tealData = data.map((d) => d.totalRoll ?? 0);
+    const redData = chartData.map((d) => d.totalMinutes ?? 0);
+    const tealData = chartData.map((d) => d.totalRoll ?? 0);
 
     draw(ctx, canvas, [redData, tealData], colours);
-  }, [data]);
+  }, [chartData]);
 
   return (
     <ChartCanvas ref={chartRef} />
