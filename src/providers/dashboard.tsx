@@ -17,6 +17,7 @@ type DashboardContextData = {
   streakStats: StreakStats;
   hasRolled: boolean;
   completionPercentage: number;
+  onCancelRest: () => Promise<void>
 }
 
 export const DashboardContext = createContext<DashboardContextData>({
@@ -27,11 +28,12 @@ export const DashboardContext = createContext<DashboardContextData>({
   stats: { minutes: 0, activities: 0 },
   streakStats: { current: 0, highest: 0, isRecord: false },
   hasRolled: false,
-  completionPercentage: 0
+  completionPercentage: 0,
+  onCancelRest: async () => { }
 });
 
 export const DashboardProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const { isRestDay, insert: addRest } = useIsRestDay();
+  const { isRestDay, insert: addRest, removeRest } = useIsRestDay();
   const { weekRestCount, refresh: refreshRestCount } = useRestCountThisWeek();
   const { todaysRoll, goal } = useTodaysRolls();
   const { stats } = useTodaysStats();
@@ -44,8 +46,13 @@ export const DashboardProvider: React.FC<PropsWithChildren> = ({ children }) => 
     refreshRestCount();
   }
 
+  const onCancelRest = async () => {
+    await removeRest();
+    refreshRestCount();
+  }
+
   return (
-    <DashboardContext.Provider value={{ weekRestCount, isRestDay, addRest: onAddRest, todaysRoll, goal, stats, streakStats, hasRolled, completionPercentage }}>
+    <DashboardContext.Provider value={{ weekRestCount, isRestDay, addRest: onAddRest, todaysRoll, goal, stats, streakStats, hasRolled, completionPercentage, onCancelRest }}>
       {children}
     </DashboardContext.Provider>
   );

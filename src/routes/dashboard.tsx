@@ -16,7 +16,7 @@ import { ProfileContext } from "@providers/profile";
 import { StreakCard } from "@components/StreakCard";
 
 export const DashboardRoute: React.FC = () => {
-  const { streakStats, weekRestCount, isRestDay, addRest, todaysRoll, goal, stats, hasRolled, completionPercentage } = useContext(DashboardContext);
+  const { streakStats, weekRestCount, isRestDay, addRest, todaysRoll, goal, stats, hasRolled, completionPercentage, onCancelRest } = useContext(DashboardContext);
   const [showRest, setShowRest] = useState(false);
   const { profile } = useContext(ProfileContext);
 
@@ -31,7 +31,7 @@ export const DashboardRoute: React.FC = () => {
         <Header>Dashboard</Header>
         <Today />
       </Row>
-      {isRestDay && <RestCard weekRestCount={weekRestCount} weeklyRestDays={profile.weeklyRestDays} />}
+      {isRestDay && <RestCard weekRestCount={weekRestCount} weeklyRestDays={profile.weeklyRestDays} onCancel={onCancelRest} />}
       {!isRestDay &&
         <>
           <Card>

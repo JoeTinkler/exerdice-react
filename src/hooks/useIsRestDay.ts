@@ -19,6 +19,13 @@ const databindOptions: DatabindConfig<Rest, IsRestDayFilters> = {
 }
 
 export const useIsRestDay = () => {
-  const { data, loading, error, refresh, insert } = useSQLocalTable(rests, databindOptions);
-  return { isRestDay: data.length > 0, loading, error, refresh, insert }
+  const { data, loading, error, refresh, insert, remove } = useSQLocalTable(rests, databindOptions);
+
+  const onRemove = async () => {
+    if (data[0]) {
+      await remove(data[0].id);
+    }
+  }
+
+  return { isRestDay: data.length > 0, loading, error, refresh, insert, removeRest: onRemove }
 }

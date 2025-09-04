@@ -14,7 +14,7 @@ import { RestCard } from "@components/RestCard";
 import { RollDataContext } from "@providers/roll";
 
 export const RollRoute: React.FC = () => {
-  const { isRestDay, weekRestCount, stats, roll, minutesRolled, hasRolled, rollDice, acceptRoll, refreshTodaysRoll} = useContext(RollDataContext);
+  const { isRestDay, weekRestCount, stats, roll, minutesRolled, hasRolled, rollDice, acceptRoll, refreshTodaysRoll, onCancelRest } = useContext(RollDataContext);
   const { profile } = useContext(ProfileContext);
   const [showManual, setShowManual] = useState(false);
 
@@ -27,7 +27,7 @@ export const RollRoute: React.FC = () => {
       <SubHeader>Feeling lucky? Let the dice decide your activity duration!</SubHeader>
       <ManualLink onClick={() => setShowManual(true)}>Or set your roll manually</ManualLink>
 
-      {isRestDay && <RestCard weekRestCount={weekRestCount} weeklyRestDays={profile.weeklyRestDays} />}
+      {isRestDay && <RestCard weekRestCount={weekRestCount} weeklyRestDays={profile.weeklyRestDays} onCancel={onCancelRest} />}
 
       {!isRestDay &&
         <>

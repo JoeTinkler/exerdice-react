@@ -18,6 +18,7 @@ type RollDataContextData = {
   rollDice: () => void;
   acceptRoll: () => void;
   refreshTodaysRoll: () => void;
+  onCancelRest: () => Promise<void>;
 }
 
 export const RollDataContext = createContext<RollDataContextData>({
@@ -29,11 +30,12 @@ export const RollDataContext = createContext<RollDataContextData>({
   rollDice: () => { },
   acceptRoll: () => { },
   refreshTodaysRoll: () => { },
+  onCancelRest: async () => { }
 });
 
 export const RollDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const { isRestDay } = useIsRestDay();
-  const { weekRestCount } = useRestCountThisWeek();
+  const { isRestDay, removeRest } = useIsRestDay();
+  const { weekRestCount, refresh: refreshRestCount } = useRestCountThisWeek();
   const { todaysRoll, saveRoll, refresh: refreshTodaysRoll } = useTodaysRolls();
   const { stats } = useRollStats();
   const { profile } = useContext(ProfileContext);
@@ -55,12 +57,17 @@ export const RollDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
     navigate('/dashboard');
   };
 
+  const onCancelRest = async () => {
+    await removeRest();
+    refreshRestCount();
+  }
+
   useEffect(() => {
     setRoll(todaysRoll);
   }, [todaysRoll])
 
   return (
-    <RollDataContext.Provider value={{ isRestDay, weekRestCount, acceptRoll, refreshTodaysRoll, stats, roll, minutesRolled, hasRolled, rollDice }}>
+    <RollDataContext.Provider value={{ isRestDay, weekRestCount, acceptRoll, refreshTodaysRoll, stats, roll, minutesRolled, hasRolled, rollDice, onCancelRest }}>
       {children}
     </RollDataContext.Provider>
   );

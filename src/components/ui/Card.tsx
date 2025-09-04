@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Paragraph } from "./common/Text";
 
 export const Card = styled.div`
   background: ${({ theme }) => theme.card.background};
@@ -10,6 +11,10 @@ export const Card = styled.div`
 
 export const CardTitle = styled.h3`
   font-size: 20px;
+`;
+
+export const CardParagraph = styled(Paragraph)`
+  margin-top: 15px;
 `;
 
 export const GridCard = styled(Link)`
