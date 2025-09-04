@@ -32,15 +32,20 @@ export const DashboardContext = createContext<DashboardContextData>({
 
 export const DashboardProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { isRestDay, insert: addRest } = useIsRestDay();
-  const { weekRestCount } = useRestCountThisWeek();
+  const { weekRestCount, refresh: refreshRestCount } = useRestCountThisWeek();
   const { todaysRoll, goal } = useTodaysRolls();
   const { stats } = useTodaysStats();
-  const { streakStats } = useStreakStats();
+  const { stats: streakStats } = useStreakStats();
   const hasRolled = goal > 0;
   const completionPercentage =  hasRolled ? (stats.minutes / goal) * 100 : 0;
 
+  const onAddRest = async (rest: InsertRest) => {
+    await addRest(rest);
+    refreshRestCount();
+  }
+
   return (
-    <DashboardContext.Provider value={{ weekRestCount, isRestDay, addRest, todaysRoll, goal, stats, streakStats, hasRolled, completionPercentage }}>
+    <DashboardContext.Provider value={{ weekRestCount, isRestDay, addRest: onAddRest, todaysRoll, goal, stats, streakStats, hasRolled, completionPercentage }}>
       {children}
     </DashboardContext.Provider>
   );

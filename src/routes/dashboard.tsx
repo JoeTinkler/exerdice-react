@@ -20,6 +20,11 @@ export const DashboardRoute: React.FC = () => {
   const [showRest, setShowRest] = useState(false);
   const { profile } = useContext(ProfileContext);
 
+  const onAddRest = async () => {
+    await addRest({ timestamp: startOfDayUnix() });
+    setShowRest(false);
+  }
+
   return (
     <>
       <Row>
@@ -87,7 +92,7 @@ export const DashboardRoute: React.FC = () => {
         isOpen={showRest}
         onClose={() => setShowRest(true)}
         actions={[
-          { label: 'Confirm', onClick: () => { addRest({ timestamp: startOfDayUnix() }); setShowRest(false); }},
+          { label: 'Confirm', onClick: onAddRest},
           { label: 'Cancel', onClick: () => setShowRest(false)}
         ]}
       />
