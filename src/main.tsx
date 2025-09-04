@@ -14,6 +14,5 @@ root.render(
     <Providers providers={[ProfileProvider, ThemeProvider, SQLocalProvider]}>
       <Routes />
     </Providers>
-    {/* <App /> Uncomment this line to render the App component */}
   </React.StrictMode>
 )

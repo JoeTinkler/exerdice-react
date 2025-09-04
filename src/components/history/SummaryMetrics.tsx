@@ -12,7 +12,7 @@ export const SummaryMetrics: React.FC = () => {
         Total Minutes
       </div>
       <div>
-        <span>{stats.dailyAverage}</span>
+        <span>{Math.round(stats.dailyAverage)}</span>
         Daily Average
       </div>
       <div>

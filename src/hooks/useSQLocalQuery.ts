@@ -14,7 +14,8 @@ export const useSQLocalQuery = <TResult>(sql: string | SQLWrapper) => {
       setError(undefined);
       setLoading(true);
       console.log('useSQLocalQuery Loading', sql);
-      const result = await (typeof((sql as any)['execute']) === 'function' ? (sql as any).execute() : db.run(sql)) as TResult[]
+      const result = await (typeof((sql as any)['execute']) === 'function' ? (sql as any).execute() : db.run(sql)) as TResult[];
+      console.log(result);
       setData(result);
     } catch (error) {
       console.error(error);

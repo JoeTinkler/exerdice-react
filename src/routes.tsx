@@ -9,6 +9,10 @@ import { HistoryDataProvider } from '@providers/history';
 import { Providers } from '@providers/providers';
 import { ActivityTypesProvider } from '@providers/activityTypes';
 import { DashboardProvider } from '@providers/dashboard';
+import { SQLocal } from '@components/SQLocal';
+import { RouteWrapper } from '@components/ui/common/Route';
+import { GlobalStyle } from '@components/Global';
+import { RollDataProvider } from '@providers/roll';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +29,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/roll',
-    element: <RollRoute />,
+    element: <Providers providers={[RollDataProvider]}><RollRoute /></Providers>,
   },
   {
     path: '/log',
@@ -39,6 +43,15 @@ const router = createBrowserRouter([
 
     path: '/profile',
     element: (<Providers providers={[ActivityTypesProvider]}><ProfileRoute /></Providers>),
+  },
+  {
+    path: '/sqlocal',
+    element: <>
+      <GlobalStyle />
+      <RouteWrapper>
+        <SQLocal />
+      </RouteWrapper>
+    </>
   }
 ]);
 

@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useSQLocalQuery } from "./useSQLocalQuery";
 import { dice_rolls, DiceRollType, rolls } from "@db/schema";
 import { db } from "@db/db";
-import { and, avg, between, eq, sql, sum } from "drizzle-orm";
+import { and, between, eq, sum } from "drizzle-orm";
 import { timestampDate } from "@helpers/sqlite";
 
-type RollStats = {
+export type RollStats = {
   yesterdayTotal: number;
   weekAverage: number;
 }

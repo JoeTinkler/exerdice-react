@@ -6,47 +6,20 @@ import { SubHeader } from "@components/ui/common/Header";
 import { Row } from "@components/ui/common/Layout";
 import { RouteWrapper } from "@components/ui/common/Route";
 import { Paragraph } from "@components/ui/common/Text";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { Today } from "@components/Today";
 import { Button } from "@components/ui/common/Button";
 import { ButtonRow, DiceBox, InfoRow, ManualLink, ResultBox, ResultText, RolledDice, TipIcon } from "@components/ui/routes/Roll";
 import { ProfileContext } from "@providers/profile";
 import { diceShape } from "@components/ui/Dice";
 import { ManualDiceDialog } from "@components/ManualDiceDialog";
-import { useIsRestDay } from "@hooks/useIsRestDay";
-import { useTodaysRolls } from "@hooks/useTodaysRoll";
-import { useRollStats } from "@hooks/useRollStats";
-import { generateRoll } from "@helpers/rolls";
 import { RestCard } from "@components/RestCard";
+import { RollDataContext } from "@providers/roll";
 
 export const RollRoute: React.FC = () => {
-  const { isRestDay } = useIsRestDay();
-  const { todaysRoll, saveRoll, refresh: refreshTodaysRoll } = useTodaysRolls();
-  const { stats } = useRollStats();
+  const { isRestDay, weekRestCount, stats, roll, minutesRolled, hasRolled, rollDice, acceptRoll, refreshTodaysRoll} = useContext(RollDataContext);
   const { profile } = useContext(ProfileContext);
-
-  const [roll, setRoll] = useState(todaysRoll);
   const [showManual, setShowManual] = useState(false);
-
-  const minutesRolled = roll?.activityRolls?.reduce((s, ex) => s + ex.value, 0) ?? 0;
-  const hasRolled = !!roll;
-  const navigate = useNavigate();
-
-  const rollDice = () => {
-    const newRoll = generateRoll({ maxCount: profile.modifierDiceSize, maxExcerciseValue: profile.exerciseDiceSize });
-    setRoll(newRoll);
-  };
-
-  const acceptRoll = async () => {
-    if (!roll) return;
-    await saveRoll(roll);
-    navigate('/dashboard');
-  };
-
-  useEffect(() => {
-    setRoll(todaysRoll);
-  }, [todaysRoll])
 
   return (
     <>
@@ -59,15 +32,15 @@ export const RollRoute: React.FC = () => {
         <SubHeader>Feeling lucky? Let the dice decide your activity duration!</SubHeader>
         <ManualLink onClick={() => setShowManual(true)}>Or set your roll manually</ManualLink>
 
-        {isRestDay && <RestCard />}
+        {isRestDay && <RestCard weekRestCount={weekRestCount} weeklyRestDays={profile.weeklyRestDays} />}
 
         {!isRestDay &&
           <>
             <DiceBox>
               {hasRolled &&
                 <>
-                  <RolledDice $shape={diceShape(roll.modifierRoll.max)} $highlight={true}>{roll.modifierRoll.value}</RolledDice>
-                  {roll.activityRolls?.map((r, i) => (<RolledDice $shape={diceShape(r.max)} $highlight={true} key={i}>{r.value}</RolledDice>))}
+                  <RolledDice $shape={diceShape(roll!.modifierRoll.max)} $highlight={true}>{roll!.modifierRoll.value}</RolledDice>
+                  {roll!.activityRolls?.map((r, i) => (<RolledDice $shape={diceShape(r.max)} $highlight={true} key={i}>{r.value}</RolledDice>))}
                 </>
               }
               {!hasRolled && <>Not Rolled</>}

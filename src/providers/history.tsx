@@ -60,7 +60,7 @@ export const HistoryDataProvider: React.FC<PropsWithChildren> = ({ children }) =
   const { start, end } = timespanFilters(filters);
   const { activities, setFilters: setActivityFilters } = useActivities(start, end);
   const { rolls, setFilters: setRollFilters } = useRolls(start, end);
-  const { stats, setFilters: setStatsFitlers } = useHistoryStats(start, end);
+  const { stats } = useHistoryStats();
   const { data: chartData } = useHistoryChartData();
 
   const activityDays = useMemo(() => activities?.reduce((days, a) => {
@@ -80,7 +80,6 @@ export const HistoryDataProvider: React.FC<PropsWithChildren> = ({ children }) =
     const { start, end } = timespanFilters(filters);
     setActivityFilters({ start, end });
     setRollFilters({ start, end });
-    setStatsFitlers({ year: filters.year, month: filters.month });
   }, [filters]);
 
   return (

@@ -13,7 +13,7 @@ import styled from "styled-components";
 import { AvatarUrlDialog } from "@components/AvatarUrlDialog";
 import { ThemeContext } from "@providers/theme";
 import { ActivityTypes } from "@components/activity/ActivityTypes";
-import { SQLocalFileCard } from "@components/SQLIteFileCard";
+import { SQLocalFileCard } from "@components/SQLocalFileCard";
 
 const ProfilePicWrapper = styled.div`
   display: flex;

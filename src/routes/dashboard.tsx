@@ -31,7 +31,7 @@ export const DashboardRoute: React.FC = () => {
           <Header>Dashboard</Header>
           <Today />
         </Row>
-        {isRestDay && <RestCard />}
+        {isRestDay && <RestCard weekRestCount={weekRestCount} weeklyRestDays={profile.weeklyRestDays} />}
         {!isRestDay &&
           <>
             <Card>
