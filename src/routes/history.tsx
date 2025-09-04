@@ -1,8 +1,5 @@
-import { GlobalStyle } from "@components/Global";
-import { NavBar } from "@components/NavBar";
 import React, { useContext, useEffect, useState } from "react";
 import { HistoryChart } from "@components/history/HistoryChart";
-import { RouteWrapper } from "@components/ui/common/Route";
 import { Row } from "@components/ui/common/Layout";
 import { Header } from "@components/ui/common/Header";
 import { Card } from "@components/ui/Card";
@@ -36,33 +33,29 @@ export const HistoryRoute: React.FC = () => {
 
   return (
     <>
-      <GlobalStyle />
-      <RouteWrapper>
-        <Row>
-          <Header>Activity History</Header>
-        </Row>
-        <Card>
-          <SummaryHeader />
-          <SummaryMetrics />
-          <HistoryChart />
-        </Card>
-        <Row>
-          <SubHeader>Activity Log</SubHeader>
-          <ToggleButtons>
-            <ToggleButton $active={showList} onClick={() => setShowList(!showList)}>List</ToggleButton>
-            <ToggleButton $active={showCalendar} onClick={() => setShowCalendar(!showCalendar)}>Calendar</ToggleButton>
-          </ToggleButtons>
-        </Row>
-        {showCalendar && <Calendar day={filters.day!} month={filters.month} year={filters.year} onSelect={(day, month, year) => { setFilters({ ...filters, day, month, year })}} />}
-        {showList && activityDays.map((day, i) => (
-          <React.Fragment key={day.date}>
-            <DaySummary date={day.date} roll={day.roll} activities={day.activities} />
-            {day.activities.map((a) => (<ActivityCard key={a.id} activity={a as Activity} />))}
-            {i !== activityDays.length -1 && <ActivitySeparator />}
-          </React.Fragment>
-        ))}
-      </RouteWrapper>
-      <NavBar />
+      <Row>
+        <Header>Activity History</Header>
+      </Row>
+      <Card>
+        <SummaryHeader />
+        <SummaryMetrics />
+        <HistoryChart />
+      </Card>
+      <Row>
+        <SubHeader>Activity Log</SubHeader>
+        <ToggleButtons>
+          <ToggleButton $active={showList} onClick={() => setShowList(!showList)}>List</ToggleButton>
+          <ToggleButton $active={showCalendar} onClick={() => setShowCalendar(!showCalendar)}>Calendar</ToggleButton>
+        </ToggleButtons>
+      </Row>
+      {showCalendar && <Calendar day={filters.day!} month={filters.month} year={filters.year} onSelect={(day, month, year) => { setFilters({ ...filters, day, month, year })}} />}
+      {showList && activityDays.map((day, i) => (
+        <React.Fragment key={day.date}>
+          <DaySummary date={day.date} roll={day.roll} activities={day.activities} />
+          {day.activities.map((a) => (<ActivityCard key={a.id} activity={a as Activity} />))}
+          {i !== activityDays.length -1 && <ActivitySeparator />}
+        </React.Fragment>
+      ))}
     </>
   );
 }

@@ -13,36 +13,37 @@ import { SQLocal } from '@components/SQLocal';
 import { RouteWrapper } from '@components/ui/common/Route';
 import { GlobalStyle } from '@components/Global';
 import { RollDataProvider } from '@providers/roll';
+import { Route } from '@components/Route';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LandingRoute />,
+    element: <Route useWrapper={false} showNav={false}><LandingRoute /></Route>,
   },
   {
     path: '/dashboard',
-    element: (<Providers providers={[DashboardProvider, ActivityTypesProvider]}><DashboardRoute /></Providers>)
+    element: (<Route providers={[DashboardProvider, ActivityTypesProvider]}><DashboardRoute /></Route>)
   },
   {
     path: '/history',
-    element: (<Providers providers={[HistoryDataProvider, ActivityTypesProvider]}><HistoryRoute /></Providers>)
+    element: (<Route providers={[HistoryDataProvider, ActivityTypesProvider]}><HistoryRoute /></Route>)
   },
   {
     path: '/roll',
-    element: <Providers providers={[RollDataProvider]}><RollRoute /></Providers>,
+    element: <Route providers={[RollDataProvider]}><RollRoute /></Route>,
   },
   {
     path: '/log',
-    element: (<Providers providers={[ActivityTypesProvider]}><LogRoute /></Providers>)
+    element: (<Route providers={[ActivityTypesProvider]}><LogRoute /></Route>)
   },
   {
     path: '/log/:id',
-    element: (<Providers providers={[ActivityTypesProvider]}><LogRoute /></Providers>)
+    element: (<Route providers={[ActivityTypesProvider]}><LogRoute /></Route>)
   },
   {
 
     path: '/profile',
-    element: (<Providers providers={[ActivityTypesProvider]}><ProfileRoute /></Providers>),
+    element: (<Route providers={[ActivityTypesProvider]}><ProfileRoute /></Route>),
   },
   {
     path: '/sqlocal',

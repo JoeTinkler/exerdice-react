@@ -1,8 +1,7 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import heroImg from "@assets/hero.png";
-import { GlobalStyle } from "@components/Global";
 import { Link } from "react-router-dom";
 import StopwatchIcon from "@assets/icons/stopwatch.svg?react";
 import ChartIcon from "@assets/icons/bar-chart.svg?react";
@@ -125,36 +124,35 @@ const Caption = styled.div`
 export const LandingRoute: React.FC = () => {
   return (
     <>
-      <GlobalStyle />
-        <HeroCard>
-          <Illustration />
-          <Fab aria-label="Stopwatch">
-            <StopwatchIcon />
-          </Fab>
-        </HeroCard>
+      <HeroCard>
+        <Illustration />
+        <Fab aria-label="Stopwatch">
+          <StopwatchIcon />
+        </Fab>
+      </HeroCard>
 
-        <Content>
-          <Title>Exercise Time Tracker</Title>
-          <Subtitle>
-            Let the dice decide your exercise time and log your progress all in one place. Start your journey now!
-          </Subtitle>
-          <CTA to="/dashboard">Get Started</CTA>
-        </Content>
+      <Content>
+        <Title>Exercise Time Tracker</Title>
+        <Subtitle>
+          Let the dice decide your exercise time and log your progress all in one place. Start your journey now!
+        </Subtitle>
+        <CTA to="/dashboard">Get Started</CTA>
+      </Content>
 
-        <BottomBar>
-          <Action>
-            <ActionIcon><ChartIcon /></ActionIcon>
-            <Caption>Track Progress</Caption>
-          </Action>
-          <Action>
-            <ActionIcon><DiceIcon /></ActionIcon>
-            <Caption>Roll Dice</Caption>
-          </Action>
-          <Action>
-            <ActionIcon><MedalIcon /></ActionIcon>
-            <Caption>Set Goals</Caption>
-          </Action>
-        </BottomBar>
+      <BottomBar>
+        <Action>
+          <ActionIcon><ChartIcon /></ActionIcon>
+          <Caption>Track Progress</Caption>
+        </Action>
+        <Action>
+          <ActionIcon><DiceIcon /></ActionIcon>
+          <Caption>Roll Dice</Caption>
+        </Action>
+        <Action>
+          <ActionIcon><MedalIcon /></ActionIcon>
+          <Caption>Set Goals</Caption>
+        </Action>
+      </BottomBar>
     </>
   );
 }
