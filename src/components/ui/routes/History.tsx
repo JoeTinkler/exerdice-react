@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Paragraph } from "../common/Text";
 
 export const ToggleButtons = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ export const SummaryHeaderContainer = styled.div`
 export const SummaryMetricsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin: 12px 0;
   div {
     text-align: center;
     font-size: 14px;
@@ -37,6 +38,13 @@ export const SummaryMetricsContainer = styled.div`
     font-weight: bold;
     color: ${({ theme }) => theme.highlightColour};
   }
+`;
+
+export const StatsToggle = styled(Paragraph)`
+  margin: 15px auto 0 auto;
+  text-decoration: underline;
+  text-align: center;
+  cursor: pointer;
 `;
 
 export const DaySummaryContainer = styled.span`

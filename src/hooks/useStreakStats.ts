@@ -1,3 +1,4 @@
+import { DiceRollType } from "@db/schema";
 import { useSQLocalQueryText } from "./useSQLocalQueryText";
 
 export type StreakStats = {
@@ -21,7 +22,7 @@ export const useStreakStats = () => {
         SUM(d.value) AS goal
       FROM dice_rolls d
       JOIN rolls r ON d.roll_id = r.id
-      WHERE d.type = 2
+      WHERE d.type = ${DiceRollType.Activity}
       GROUP BY day
     ),
     rest_days AS (

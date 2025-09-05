@@ -4,7 +4,7 @@ import { Row } from "@components/ui/common/Layout";
 import { Header } from "@components/ui/common/Header";
 import { Card } from "@components/ui/Card";
 import { SubHeader } from "@components/ui/common/Header";
-import { ActivitySeparator, ToggleButton, ToggleButtons } from "@components/ui/routes/History";
+import { ActivitySeparator, StatsToggle, ToggleButton, ToggleButtons } from "@components/ui/routes/History";
 import { Calendar } from "@components/Calendar";
 import { Activity } from "@db/schema";
 import { ActivityCard } from "@components/activity/ActivityCard";
@@ -12,6 +12,7 @@ import { DaySummary } from "@components/DaySummary";
 import { HistoryDataContext } from "@providers/history";
 import { SummaryMetrics } from "@components/history/SummaryMetrics";
 import { SummaryHeader } from "@components/history/SummaryHeader";
+import { AdvancedMetrics } from "@components/history/AdvancedMetrics";
 
 const defaultFilters = () => ({
   year: new Date().getFullYear(),
@@ -22,6 +23,7 @@ export const HistoryRoute: React.FC = () => {
   const { filters, setFilters, activityDays } = useContext(HistoryDataContext);
   const [showList, setShowList] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showAdvancedStats, setShowAdvancedStats] = useState(false);
 
   useEffect(() => {
     if (!showCalendar) {
@@ -40,6 +42,8 @@ export const HistoryRoute: React.FC = () => {
         <SummaryHeader />
         <SummaryMetrics />
         <HistoryChart />
+        { showAdvancedStats && <AdvancedMetrics />}
+        <StatsToggle onClick={() => setShowAdvancedStats(!showAdvancedStats)}>{showAdvancedStats ? 'Hide' : 'Show'} Advanced stats for nerds</StatsToggle>
       </Card>
       <Row>
         <SubHeader>Activity Log</SubHeader>

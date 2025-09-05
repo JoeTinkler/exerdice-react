@@ -10,6 +10,11 @@ import { startOfDayUnix } from "@helpers/date";
 import { useSQLocalQueryText } from "@hooks/useSQLocalQueryText";
 import styled from "styled-components";
 
+const QueryBox = styled(TextArea)`
+  resize: vertical;
+  min-height: 250px;
+`;
+
 const ResultBox = styled(TextArea)`
   min-height: 500px;
 `;
@@ -45,7 +50,7 @@ export const SQLocal: React.FC = () => {
     <>
       <Card>
         <CardTitle>Query Data {loading && <span> Loading...</span>}{error && <span> {JSON.stringify(error, null, 2)}</span>}</CardTitle>
-        <TextArea value={query} onChange={(e) => setQuery(e.target.value)} rows={15} />
+        <QueryBox value={query} onChange={(e) => setQuery(e.target.value)} rows={15} />
         <Button onClick={refresh}>Run Query</Button>
         <ResultBox value={JSON.stringify(data ?? [], null, 2)} rows={20} readOnly={true} />
       </Card>

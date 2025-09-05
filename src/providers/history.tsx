@@ -7,6 +7,7 @@ import { RollHistoryItem, useRolls } from "@hooks/useRolls";
 import { HistoryStats, useHistoryStats } from "@hooks/useHistoryStats";
 import { DayRollState } from "@hooks/useTodaysRoll";
 import { HistoryChartData, useHistoryChartData } from "@hooks/useHistoryChartData";
+import { DailyAverageStats, useDailyAverages } from "@hooks/useDailyAverages";
 
 const defaultFilters = () => ({
   year: new Date().getFullYear(),
@@ -33,6 +34,7 @@ type HistoryDataContextData = {
   activityDays: ActivityDay[];
   activities: Activity[];
   chartData: HistoryChartData[];
+  averageStats: DailyAverageStats;
 }
 
 export const HistoryDataContext = createContext<HistoryDataContextData>({
@@ -46,7 +48,12 @@ export const HistoryDataContext = createContext<HistoryDataContextData>({
   rolls: [],
   activityDays: [],
   activities: [],
-  chartData: []
+  chartData: [],
+  averageStats: {
+    averageMinutes: 0,
+    averageRoll: 0,
+    averageOvertime: 0
+  }
 });
 
 type HistoryFilters = {
@@ -62,6 +69,7 @@ export const HistoryDataProvider: React.FC<PropsWithChildren> = ({ children }) =
   const { rolls, setFilters: setRollFilters } = useRolls(start, end);
   const { stats } = useHistoryStats();
   const { data: chartData } = useHistoryChartData();
+  const { stats: averageStats } = useDailyAverages();
 
   const activityDays = useMemo(() => activities?.reduce((days, a) => {
       const date = new Date(a.timestamp);
@@ -83,7 +91,7 @@ export const HistoryDataProvider: React.FC<PropsWithChildren> = ({ children }) =
   }, [filters]);
 
   return (
-    <HistoryDataContext.Provider value={{ filters, setFilters, stats, rolls, activityDays, activities, chartData }}>
+    <HistoryDataContext.Provider value={{ filters, setFilters, stats, rolls, activityDays, activities, chartData, averageStats }}>
       {children}
     </HistoryDataContext.Provider>
   );
