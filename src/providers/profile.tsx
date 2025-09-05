@@ -6,6 +6,7 @@ const DEFAULT_DATA: ProfileData = {
   modifierDiceSize: 4,
   exerciseDiceSize: 20,
   weeklyRestDays: 3,
+  startOfDayOffset: 0
 }
 
 type ProfileData = {
@@ -15,6 +16,7 @@ type ProfileData = {
   weeklyRestDays: number;
   modifierDiceSize: number;
   exerciseDiceSize: number;
+  startOfDayOffset: number;
 }
 
 type ProfileContextData = {
@@ -30,7 +32,6 @@ const fetchProfile = (): ProfileData => {
 const storeProfile = (profile: ProfileData) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
 }
-
 
 export const ProfileContext = createContext<ProfileContextData>({
   profile: DEFAULT_DATA,

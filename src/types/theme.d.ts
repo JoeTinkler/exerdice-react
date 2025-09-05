@@ -7,6 +7,7 @@ type ThemeOptions = {
   secondaryColour: React.CSSProperties['color'];
   highlightColour: React.CSSProperties['color'];
   highlightHoverColour: React.CSSProperties['color'];
+  warningColour: React.CSSProperties['color'];
   listItems: {
     background: React.CSSProperties['background'];
     colour: React.CSSProperties['color'];

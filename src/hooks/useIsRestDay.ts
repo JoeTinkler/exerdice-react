@@ -2,24 +2,26 @@ import { Rest, rests } from "@db/schema";
 import { DatabindConfig, useSQLocalTable } from "./useSQLocalTable";
 import { desc, between } from "drizzle-orm";
 import { startOfDayUnix, addDaysUnix } from "@helpers/date";
+import { useContext } from "react";
+import { ProfileContext } from "@providers/profile";
 
 type IsRestDayFilters = {
   today: number;
 }
 
-
-const databindOptions: DatabindConfig<Rest, IsRestDayFilters> = {
+const databindOptions = (offset: number): DatabindConfig<Rest, IsRestDayFilters> => ({
   orderBy: desc(rests.id),
   filters: {
     defaults: {
-      today: startOfDayUnix()
+      today: startOfDayUnix(offset)
     },
     where: ({ today }) => between(rests.timestamp, today, addDaysUnix(today, 1))
   }
-}
+})
 
 export const useIsRestDay = () => {
-  const { data, loading, error, refresh, insert, remove } = useSQLocalTable(rests, databindOptions);
+  const { profile } = useContext(ProfileContext);
+  const { data, loading, error, refresh, insert, remove } = useSQLocalTable(rests, databindOptions(profile.startOfDayOffset));
 
   const onRemove = async () => {
     if (data[0]) {

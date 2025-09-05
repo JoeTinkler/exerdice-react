@@ -3,7 +3,7 @@ import { db } from "@db/db";
 import { activities, dice_rolls, DiceRollType, rolls } from "@db/schema";
 import { timestampDate, whereStartEnd } from "@helpers/sqlite";
 import { and, countDistinct, eq, sum } from "drizzle-orm";
-import { addDaysUnix, daysBetween, startOfDayUnix, toDbFormatUnix, unixTimestamp } from "@helpers/date";
+import { addDaysUnix, daysBetween, toDbFormatUnix, unixTimestamp } from "@helpers/date";
 
 type ActivityRow = {
   date: string;

@@ -3,42 +3,39 @@ import { Header } from "@components/ui/common/Header";
 import { Card, CardTitle } from "@components/ui/Card";
 import { Input, Select, Slider } from "@components/ui/Form";
 import { Row } from "@components/ui/common/Layout";
-import { Label } from "@components/ui/common/Text";
+import { Label, Paragraph } from "@components/ui/common/Text";
 import { ProfileContext } from "@providers/profile";
 import React, { useContext, useState } from "react";
-import styled from "styled-components";
 import { AvatarUrlDialog } from "@components/AvatarUrlDialog";
 import { ThemeContext } from "@providers/theme";
 import { ActivityTypes } from "@components/activity/ActivityTypes";
 import { SQLocalFileCard } from "@components/SQLocalFileCard";
+import { Modal } from "@components/Modal";
+import { SliderContainer, ProfilePicWrapper, ChangePhoto, WarningIcon } from "@components/ui/routes/Profile";
 
-const ProfilePicWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-`;
-
-const ChangePhoto = styled.button`
-  background: #333;
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: none;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background: #444;
+const timeToOffset = (time: string) => {
+  if(!/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(time)) {
+    return 0;
   }
-`;
+  const hours = parseInt(time.substring(0, 2));
+  const minutes = parseInt(time.substring(3, 5));
+  return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+}
 
-const SliderContainer = styled.div`
-  margin: 15px 0;
-`;
+const offsetToTime = (offset?: number) => {
+  if (!offset) {
+    return '00:00';
+  }
+  const hours = Math.floor(offset / (60 * 60 * 1000));
+  const minutes = Math.floor((offset % (60 * 60 * 1000)) / (60 * 1000));
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+}
 
 export const ProfileRoute: React.FC = () => {
   const { profile, updateProfile } = useContext(ProfileContext);
   const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
   const { colour, setColour, theme, setTheme } = useContext(ThemeContext);
+  const [isWarningOpen, setIsWarningOpen] = useState(false);
 
   return (
     <>
@@ -86,6 +83,9 @@ export const ProfileRoute: React.FC = () => {
             <span>Beginner</span>
           </div>
         </SliderContainer>
+
+        <Label onClick={() => setIsWarningOpen(true)}>Start of Day <WarningIcon /></Label>
+        <Input type="time" value={offsetToTime(profile.startOfDayOffset)} onChange={(e) => updateProfile({ startOfDayOffset: timeToOffset(e.target.value)})} />
       </Card>
 
       <ActivityTypes />
@@ -105,6 +105,9 @@ export const ProfileRoute: React.FC = () => {
       <SQLocalFileCard />
 
       <AvatarUrlDialog isOpen={isAvatarDialogOpen} onClose={() => setIsAvatarDialogOpen(false)} />
+      <Modal isOpen={isWarningOpen} onClose={() => setIsWarningOpen(false)}>
+        <Paragraph>Warning! Changing start of day could move some rolls and exercises to different days. It is not recommended to change if you already have a lot of logs</Paragraph>
+      </Modal>
     </>
   );
 }

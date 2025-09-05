@@ -1,10 +1,11 @@
 import { addDaysUnix, startOfDayUnix, toDbFormatUnix } from "@helpers/date";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useSQLocalQuery } from "./useSQLocalQuery";
 import { dice_rolls, DiceRollType, rolls } from "@db/schema";
 import { db } from "@db/db";
 import { and, between, eq, sum } from "drizzle-orm";
 import { timestampDate } from "@helpers/sqlite";
+import { ProfileContext } from "@providers/profile";
 
 export type RollStats = {
   yesterdayTotal: number;
@@ -17,7 +18,8 @@ type DayRollRow = {
 }
 
 export const useRollStats = () => {
-  const [today, setToday] = useState(startOfDayUnix());
+  const { profile } = useContext(ProfileContext);
+  const [today, setToday] = useState(startOfDayUnix(profile.startOfDayOffset));
   const query = db.select({
     day: timestampDate(rolls.timestamp),
     total: sum(dice_rolls.value).mapWith(Number)

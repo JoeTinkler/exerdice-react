@@ -21,7 +21,7 @@ export const DashboardRoute: React.FC = () => {
   const { profile } = useContext(ProfileContext);
 
   const onAddRest = async () => {
-    await addRest({ timestamp: startOfDayUnix() });
+    await addRest({ timestamp: startOfDayUnix(profile.startOfDayOffset) });
     setShowRest(false);
   }
 

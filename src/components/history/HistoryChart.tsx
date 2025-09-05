@@ -68,7 +68,11 @@ export const HistoryChart: React.FC = () => {
         beginAtZero: true,
         grid: {
           drawOnChartArea: false,
-        }
+          tickLength: 0
+        },
+        border: {
+          width: 0,
+        },
       },
       x: {
         grid: {

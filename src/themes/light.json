@@ -5,6 +5,7 @@
   "secondaryColour": "#222",
   "highlightColour": "#6200ee",
   "highlightHoverColour": "#3700b3",
+  "warningColour": "#E1712B",
   "button": {
     "background": "#333",
     "colour": "#ffffff"

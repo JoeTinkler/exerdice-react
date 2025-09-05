@@ -10,12 +10,12 @@ export const sameDay = (x: Date, y: Date) => x.getFullYear() === y.getFullYear()
 
 export const sameDayUnix = (x: number, y : number) => sameDay(new Date(x), new Date(y));
 
-export const startOfDay = (date?: Date | number) => {
+const startOfDay = (date?: Date | number) => {
   const d = !date || typeof(date) === 'number' ? new Date(date ?? Date.now()) : date;
   return new Date(d.getFullYear(), d.getMonth(), d.getDate());
 }
 
-export const startOfDayUnix = () => startOfDay().getTime();
+export const startOfDayUnix = (offset: number) => startOfDay().getTime() + (offset ?? 0);
 
 export const daysBetween = (a: Date | number, b: Date | number) => Math.abs(Math.round((b.valueOf() - a.valueOf()) / (1000 * 60 * 60 * 24)));
 

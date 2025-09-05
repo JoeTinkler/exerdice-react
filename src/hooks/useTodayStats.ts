@@ -1,9 +1,10 @@
 import { activities } from "@db/schema";
 import { addDaysUnix, startOfDayUnix } from "@helpers/date";
 import { between, count, sum } from "drizzle-orm";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { db } from "@db/db";
 import { useSQLocalQuery } from "./useSQLocalQuery";
+import { ProfileContext } from "@providers/profile";
 
 export type TodaysStats = {
   minutes: number;
@@ -11,7 +12,8 @@ export type TodaysStats = {
 }
 
 export const useTodaysStats = () => {
-  const [today, setToday] = useState(startOfDayUnix());
+  const { profile } = useContext(ProfileContext);
+  const [today, setToday] = useState(startOfDayUnix(profile.startOfDayOffset));
 
   const query = db.select({
     minutes: sum(activities.minutes),

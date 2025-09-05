@@ -4,6 +4,7 @@ import { between, eq } from "drizzle-orm";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { SQLocalContext } from "@providers/sqLocal";
 import { db } from "@db/db";
+import { ProfileContext } from "@providers/profile";
 
 export type DayRollState = {
   modifierRoll: DiceRollValue;
@@ -17,11 +18,12 @@ type DiceRollValue = {
 }
 
 export const useTodaysRolls = () => {
+  const { profile } = useContext(ProfileContext);
   const { initialized } = useContext(SQLocalContext);
   const [roll, setRoll] = useState<DayRollState>();
   const [rollId, setRollId] = useState<number>();
 
-  const [today, setToday] = useState(startOfDayUnix());
+  const [today, setToday] = useState(startOfDayUnix(profile.startOfDayOffset));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 

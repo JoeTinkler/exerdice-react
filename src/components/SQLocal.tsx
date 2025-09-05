@@ -9,6 +9,8 @@ import { Table, TableData, TableHeader, TableRow } from "./ui/common/table";
 import { startOfDayUnix } from "@helpers/date";
 import { useSQLocalQueryText } from "@hooks/useSQLocalQueryText";
 import styled from "styled-components";
+import { useContext } from "react";
+import { ProfileContext } from "@providers/profile";
 
 const QueryBox = styled(TextArea)`
   resize: vertical;
@@ -45,7 +47,8 @@ const DataTable: React.FC<{ schema: SQLiteTable}> = ({ schema }) => {
 }
 
 export const SQLocal: React.FC = () => {
-  const { data, loading, error, refresh, query, setQuery } = useSQLocalQueryText(`SELECT * FROM activities WHERE timestamp >= ${startOfDayUnix()}`);
+  const { profile } = useContext(ProfileContext);
+  const { data, loading, error, refresh, query, setQuery } = useSQLocalQueryText(`SELECT * FROM activities WHERE timestamp >= ${startOfDayUnix(profile.startOfDayOffset)}`);
   return (
     <>
       <Card>
