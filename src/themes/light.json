@@ -1,6 +1,7 @@
 {
   "titleColour": "#000000",
   "background": "#ffffff",
+  "secondaryBackground": "#353535",
   "colour": "#000000",
   "secondaryColour": "#222",
   "highlightColour": "#6200ee",

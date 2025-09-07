@@ -6,7 +6,6 @@ import { RollRoute } from './routes/roll';
 import { LogRoute } from './routes/log';
 import { ProfileRoute } from './routes/profile';
 import { HistoryDataProvider } from '@providers/history';
-import { Providers } from '@providers/providers';
 import { ActivityTypesProvider } from '@providers/activityTypes';
 import { DashboardProvider } from '@providers/dashboard';
 import { SQLocal } from '@components/SQLocal';
@@ -14,6 +13,7 @@ import { RouteWrapper } from '@components/ui/common/Route';
 import { GlobalStyle } from '@components/Global';
 import { RollDataProvider } from '@providers/roll';
 import { Route } from '@components/Route';
+import { ResolutionWarning } from '@components/ui/ResolutionWarning';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +48,6 @@ const router = createBrowserRouter([
   {
     path: '/sqlocal',
     element: <>
-      <GlobalStyle />
       <RouteWrapper>
         <SQLocal />
       </RouteWrapper>
@@ -58,6 +57,10 @@ const router = createBrowserRouter([
 
 export const Routes: React.FC = () => {
   return (
-    <RouterProvider router={router} />
+    <>
+      <GlobalStyle />
+      <ResolutionWarning>Exerdice was designed for mobile devices - for the best experience use a mobile device</ResolutionWarning>
+      <RouterProvider router={router} />
+    </>
   );
 }

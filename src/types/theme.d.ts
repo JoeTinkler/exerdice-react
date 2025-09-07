@@ -3,6 +3,7 @@ type Theme = 'light' | 'dark';
 type ThemeOptions = {
   titleColour: React.CSSProperties['color'];
   background: React.CSSProperties['background'];
+  secondaryBackground: React.CSSProperties['background'];
   colour: React.CSSProperties['color'];
   secondaryColour: React.CSSProperties['color'];
   highlightColour: React.CSSProperties['color'];

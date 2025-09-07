@@ -10,7 +10,14 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: Roboto Condensed, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     color: ${({ theme }) => theme.colour};
+    background: ${({ theme }) => theme.secondaryBackground};
+  }
+
+  #root {
     background: ${({ theme }) => theme.background};
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 100vh;
   }
 
   input[type="color"] {
