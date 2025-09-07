@@ -4,7 +4,7 @@ import { db } from "@db/db";
 import { useSQLocalQuery } from "./useSQLocalQuery";
 import { DayRollState } from "./useTodaysRoll";
 import { whereStartEnd } from "@helpers/sqlite";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type QueryResultItem = {
   rolls: Roll,
@@ -54,5 +54,10 @@ export const useRolls = (start?: number, end?: number) => {
 
   const { data, loading, error, refresh } = useSQLocalQuery<QueryResultItem>(query);
   const rollsData = data.reduce(reduceQueryRow, [] as RollHistoryItem[]);
+
+  useEffect(() => {
+    refresh();
+  }, [filters]);
+
   return { rolls: rollsData, loading, error, refresh, setFilters }
 }

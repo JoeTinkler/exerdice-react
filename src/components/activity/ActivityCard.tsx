@@ -49,6 +49,12 @@ const Intensity = styled.div`
   text-align: right;
 `;
 
+const SecondaryStat = styled.div`
+  font-size: 11px;
+  color: ${({ theme }) => theme.secondaryColour};
+  text-align: right;
+`;
+
 const intensityLabel = (value: number) => {
   switch (value) {
     case 1: return 'Very Low';
@@ -87,6 +93,8 @@ export const ActivityCard: React.FC<PropsWithChildren<PropTypes>> = ({ activity 
       <ActivityInfo>
         <ActivityStat>{activity.minutes ?? 'N/A'} min</ActivityStat>
         <Intensity>{intensityLabel(activity.intensity)} intensity</Intensity>
+        {activity.calories && <SecondaryStat>{activity.calories} kcal</SecondaryStat>}
+        {activity.distance && <SecondaryStat>{activity.distance} km</SecondaryStat>}
       </ActivityInfo>
     </ActivityCardContainer>
   );

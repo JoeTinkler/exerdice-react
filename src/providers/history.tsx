@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useMemo, useState } from "react";
+import { PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
 import { createContext } from 'react';
 import { Activity } from "@db/schema";
 import { addDaysUnix, sameDay } from "@helpers/date";
@@ -8,15 +8,16 @@ import { HistoryStats, useHistoryStats } from "@hooks/useHistoryStats";
 import { DayRollState } from "@hooks/useTodaysRoll";
 import { HistoryChartData, useHistoryChartData } from "@hooks/useHistoryChartData";
 import { DailyAverageStats, useDailyAverages } from "@hooks/useDailyAverages";
+import { ProfileContext } from "./profile";
 
 const defaultFilters = () => ({
   year: new Date().getFullYear(),
   month: new Date().getMonth(),
 });
 
-const timespanFilters = (filters: HistoryFilters) => {
-  const start = filters.day ? new Date(filters.year, filters.month, filters.day).getTime() : new Date(filters.year, filters.month, 0).getTime();
-  const end = filters.day ? addDaysUnix(start, 1) : new Date(filters.year, filters.month+1, 0).getTime();
+const timespanFilters = (filters: HistoryFilters, offset?: number) => {
+  const start = (filters.day ? new Date(filters.year, filters.month, filters.day).getTime() : new Date(filters.year, filters.month, 1).getTime()) + (offset ?? 0);
+  const end = (filters.day ? addDaysUnix(start, 1) : new Date(filters.year, filters.month+1, 0).getTime()) + (offset ?? 0);
   return { start, end };
 }
 
@@ -63,8 +64,9 @@ type HistoryFilters = {
 }
 
 export const HistoryDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const { profile } = useContext(ProfileContext);
   const [filters, setFilters] = useState<HistoryFilters>(defaultFilters());
-  const { start, end } = timespanFilters(filters);
+  const { start, end } = timespanFilters(filters, profile.startOfDayOffset);
   const { activities, setFilters: setActivityFilters } = useActivities(start, end);
   const { rolls, setFilters: setRollFilters } = useRolls(start, end);
   const { stats } = useHistoryStats();
@@ -82,10 +84,10 @@ export const HistoryDataProvider: React.FC<PropsWithChildren> = ({ children }) =
 
       return days.map((d) => d.date === day.date ? { ...day, activities: [...day.activities, a] } : d);
     }, [] as ActivityDay[]
-  ), [activities]);
+  ), [activities, rolls]);
 
   useEffect(() => {
-    const { start, end } = timespanFilters(filters);
+    const { start, end } = timespanFilters(filters, profile.startOfDayOffset);
     setActivityFilters({ start, end });
     setRollFilters({ start, end });
   }, [filters]);

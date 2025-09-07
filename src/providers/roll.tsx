@@ -7,6 +7,7 @@ import { RollStats, useRollStats } from "@hooks/useRollStats";
 import { ProfileContext } from "./profile";
 import { useNavigate } from "react-router-dom";
 import { generateRoll } from "@helpers/rolls";
+import { useDiceBox } from "@hooks/useDiceBox";
 
 type RollDataContextData = {
   isRestDay: boolean;
@@ -39,6 +40,7 @@ export const RollDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { todaysRoll, saveRoll, refresh: refreshTodaysRoll } = useTodaysRolls();
   const { stats } = useRollStats();
   const { profile } = useContext(ProfileContext);
+  const { rollResult, roll: rollDiceBox } = useDiceBox('#dice-box-container');
 
   const [roll, setRoll] = useState(todaysRoll);
 
@@ -47,8 +49,12 @@ export const RollDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate();
 
   const rollDice = () => {
-    const newRoll = generateRoll({ maxCount: profile.modifierDiceSize, maxExcerciseValue: profile.exerciseDiceSize });
-    setRoll(newRoll);
+    if (profile.show3dDice) {
+      rollDiceBox();
+    } else {
+      const newRoll = generateRoll({ maxCount: profile.modifierDiceSize, maxExcerciseValue: profile.exerciseDiceSize });
+      setRoll(newRoll);
+    }
   };
 
   const acceptRoll = async () => {
@@ -64,7 +70,13 @@ export const RollDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     setRoll(todaysRoll);
-  }, [todaysRoll])
+  }, [todaysRoll]);
+
+  useEffect(() => {
+    if (rollResult) {
+      setRoll(rollResult);
+    }
+  }, [rollResult]);
 
   return (
     <RollDataContext.Provider value={{ isRestDay, weekRestCount, acceptRoll, refreshTodaysRoll, stats, roll, minutesRolled, hasRolled, rollDice, onCancelRest }}>

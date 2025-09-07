@@ -12,6 +12,7 @@ import { diceShape } from "@components/ui/Dice";
 import { ManualDiceDialog } from "@components/ManualDiceDialog";
 import { RestCard } from "@components/RestCard";
 import { RollDataContext } from "@providers/roll";
+import { DiceContainer}  from "@components/DiceBox";
 
 export const RollRoute: React.FC = () => {
   const { isRestDay, weekRestCount, stats, roll, minutesRolled, hasRolled, rollDice, acceptRoll, refreshTodaysRoll, onCancelRest } = useContext(RollDataContext);
@@ -84,6 +85,7 @@ export const RollRoute: React.FC = () => {
         </Paragraph>
       </Card>
       <ManualDiceDialog isOpen={showManual} onClose={() => { setShowManual(false); refreshTodaysRoll(); }} />
+      <DiceContainer id="dice-box-container" />
     </>
   );
 }

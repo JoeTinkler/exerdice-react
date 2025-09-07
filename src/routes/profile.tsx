@@ -12,6 +12,9 @@ import { ActivityTypes } from "@components/activity/ActivityTypes";
 import { SQLocalFileCard } from "@components/SQLocalFileCard";
 import { Modal } from "@components/Modal";
 import { SliderContainer, ProfilePicWrapper, ChangePhoto, WarningIcon } from "@components/ui/routes/Profile";
+import { Toggle } from "@components/form/Toggle";
+
+const DICE_SIZES = [2,4,6,8,10,12,20];
 
 const timeToOffset = (time: string) => {
   if(!/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(time)) {
@@ -46,10 +49,10 @@ export const ProfileRoute: React.FC = () => {
       <Card>
         <CardTitle>Personal Information</CardTitle>
         <Label>Full Name</Label>
-        <Input value={profile.name} placeholder="Sam Jogsalot" />
+        <Input value={profile.name} placeholder="Sam Jogsalot" onChange={(e) => updateProfile({ name: e.target.value })} />
 
         <Label>Email Address</Label>
-        <Input value={profile.email} placeholder="s.jogsalot@exerdice.app" />
+        <Input value={profile.email} placeholder="s.jogsalot@exerdice.app" onChange={(e) => updateProfile({ email: e.target.value })} />
 
         <Label>Profile Picture</Label>
         <ProfilePicWrapper onClick={() => setIsAvatarDialogOpen(true)}>
@@ -61,10 +64,23 @@ export const ProfileRoute: React.FC = () => {
       <Card>
         <CardTitle>Dice Settings</CardTitle>
         <Label>Modifier Dice Size</Label>
-        <Input type="number" value={profile.modifierDiceSize} onChange={(e) => updateProfile({ modifierDiceSize: parseInt(e.target.value) })} />
+        <Select
+          value={profile.modifierDiceSize}
+          onChange={(e) => updateProfile({ modifierDiceSize: parseInt(e.target.value) })}
+        >
+          {DICE_SIZES.map((size) => (<option value={size}>{size}</option>))}
+        </Select>
 
         <Label>Activity Dice Size</Label>
-        <Input type="number" value={profile.exerciseDiceSize} onChange={(e) => updateProfile({ exerciseDiceSize: parseInt(e.target.value) })} />
+        <Select
+          value={profile.exerciseDiceSize}
+          onChange={(e) => updateProfile({ exerciseDiceSize: parseInt(e.target.value) })}
+        >
+          {DICE_SIZES.map((size) => (<option value={size}>{size}</option>))}
+        </Select>
+
+        <Label>3D Dice</Label>
+        <Toggle checked={profile.show3dDice} onChange={(checked) => updateProfile({ show3dDice: checked})} />
       </Card>
 
       <Card>

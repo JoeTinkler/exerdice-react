@@ -28,7 +28,9 @@ const TimeSpan: React.FC<{ value: number }> = ({ value }) => {
 
 const DataTable: React.FC<{ schema: SQLiteTable}> = ({ schema }) => {
   const { data, loading, error, refresh } = useSQLocalTable(schema);
-  const columns = Object.values(getTableColumns(schema));
+  const columns = getTableColumns(schema);
+  const columnValues = Object.values(columns);
+  const columnKeys = Object.keys(columns);
 
   return (
     <Card>
@@ -36,10 +38,10 @@ const DataTable: React.FC<{ schema: SQLiteTable}> = ({ schema }) => {
       <Button onClick={refresh}>Refresh</Button>
       <Table>
         <thead>
-          <TableRow>{columns.map((c) => (<TableHeader>{c.name}</TableHeader>))}</TableRow>
+          <TableRow>{columnValues.map((c) => (<TableHeader>{c.name}</TableHeader>))}</TableRow>
         </thead>
         <tbody>
-          {data.map((d) => (<TableRow>{columns.map((c) => (<TableData>{d[c.name]}{c.name === 'timestamp' && <TimeSpan value={d[c.name] as number} />}</TableData>))}</TableRow>))}
+          {data.map((d) => (<TableRow>{columnValues.map((c, i) => (<TableData>{d[columnKeys[i]]}{c.name === 'timestamp' && <TimeSpan value={d[c.name] as number} />}</TableData>))}</TableRow>))}
         </tbody>
       </Table>
     </Card>

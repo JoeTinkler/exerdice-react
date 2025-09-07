@@ -10,52 +10,43 @@ export type StreakStats = {
 export const useStreakStats = () => {
   const { data, loading, error, refresh } = useSQLocalQueryText<Omit<StreakStats, 'isRecord'>>(`
     WITH daily_activity AS (
-      SELECT
-        DATE(ROUND(timestamp / 1000), 'unixepoch', 'localTime') AS day,
-        SUM(quantity) AS total_quantity
+      SELECT  DATE(ROUND(timestamp / 1000), 'unixepoch', 'localTime') AS day,
+              SUM(quantity) AS total_quantity
       FROM activities
       GROUP BY day
     ),
     daily_goal AS (
-      SELECT
-        DATE(ROUND(timestamp / 1000), 'unixepoch', 'localTime') AS day,
-        SUM(d.value) AS goal
+      SELECT  DATE(ROUND(timestamp / 1000), 'unixepoch', 'localTime') AS day,
+              SUM(d.value) AS goal
       FROM dice_rolls d
-      JOIN rolls r ON d.roll_id = r.id
+        INNER JOIN rolls r ON d.roll_id = r.id
       WHERE d.type = ${DiceRollType.Activity}
       GROUP BY day
-    ),
-    rest_days AS (
-      SELECT DISTINCT
-          DATE(ROUND(timestamp / 1000), 'unixepoch', 'localTime') AS day
-      FROM rests
     ),
     successful_days AS (
       SELECT g.day
       FROM daily_goal g
-      LEFT JOIN daily_activity a ON a.day = g.day
-      LEFT JOIN rest_days rd ON rd.day = g.day
-      WHERE rd.day IS NOT NULL
-        OR IFNULL(a.total_quantity, 0) >= g.goal
+        LEFT JOIN daily_activity a ON a.day = g.day
+      WHERE IFNULL(a.total_quantity, 0) >= g.goal
+      UNION
+      SELECT DISTINCT DATE(ROUND(timestamp / 1000), 'unixepoch', 'localTime') AS day
+      FROM rests
     ),
     numbered AS (
-      SELECT
-        day,
-        ROW_NUMBER() OVER (ORDER BY day) AS rn,
-        JULIANDAY(day) AS jd
+      SELECT  day,
+              ROW_NUMBER() OVER (ORDER BY day) AS rn,
+              JULIANDAY(day) AS jd
       FROM successful_days
     ),
     grouped AS (
-      SELECT
-        day,
-        rn - jd AS grp
+      SELECT  day,
+              rn - jd AS grp
       FROM numbered
     ),
     streaks AS (
-      SELECT
-        MIN(day) AS streak_start,
-        MAX(day) AS streak_end,
-        COUNT(*) AS streak_length
+      SELECT  MIN(day) AS streak_start,
+              MAX(day) AS streak_end,
+              COUNT(*) AS streak_length
       FROM grouped
       GROUP BY grp
     ),
