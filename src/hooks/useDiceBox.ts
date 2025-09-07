@@ -21,6 +21,7 @@ export const useDiceBox = (containerId: string) => {
       Dice = new DiceBox({
         container: containerId,
         assetPath: "/assets/",
+        theme: 'default-extras',
         throwForce: 3,
         scale: 5,
         themeColor: theme.highlightColour,

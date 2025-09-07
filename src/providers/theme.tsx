@@ -24,7 +24,6 @@ export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [colour, setColour] = useState(storedColour ?? '#ff5733')
   const handleSetTheme = (theme: Theme) => {
     setTheme(theme);
-    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   };
   const handleSetColour = (colour: string) => {
