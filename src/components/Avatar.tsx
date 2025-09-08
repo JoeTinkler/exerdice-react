@@ -17,9 +17,10 @@ const ProfileIcon = styled(ProfileIconAsset)<{ $size?: number }>`
 
 type PropTypes = {
   size?: number;
+  onClick?: () => void;
 }
 
-export const Avatar: React.FC<PropTypes> = ({ size = 60 }) => {
+export const Avatar: React.FC<PropTypes> = ({ size = 60, onClick }) => {
   const { profile } = useContext(ProfileContext);
-  return profile?.avatarUrl ? <ProfilePic $size={size} src={profile?.avatarUrl} /> : <ProfileIcon $size={size} />
+  return profile?.avatarUrl ? <ProfilePic $size={size} src={profile?.avatarUrl} onClick={onClick} /> : <ProfileIcon $size={size} />
 }

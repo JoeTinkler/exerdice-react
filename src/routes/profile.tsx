@@ -13,6 +13,7 @@ import { SQLocalFileCard } from "@components/SQLocalFileCard";
 import { Modal } from "@components/Modal";
 import { SliderContainer, ProfilePicWrapper, ChangePhoto, WarningIcon } from "@components/ui/routes/Profile";
 import { Toggle } from "@components/form/Toggle";
+import { AvatarUpload } from "@components/AvatarUpload";
 
 const DICE_SIZES = [2,4,6,8,10,12,20];
 
@@ -55,10 +56,7 @@ export const ProfileRoute: React.FC = () => {
         <Input value={profile.email} placeholder="s.jogsalot@exerdice.app" onChange={(e) => updateProfile({ email: e.target.value })} />
 
         <Label>Profile Picture</Label>
-        <ProfilePicWrapper onClick={() => setIsAvatarDialogOpen(true)}>
-          <Avatar />
-          <ChangePhoto>Change Photo</ChangePhoto>
-        </ProfilePicWrapper>
+        <AvatarUpload />
       </Card>
 
       <Card>
