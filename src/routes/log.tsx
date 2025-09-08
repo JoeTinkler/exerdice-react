@@ -114,7 +114,7 @@ export const LogRoute: React.FC = () => {
 
       {recentActivities.length > 0 &&
         <RecentActivities>
-          <h3>Recent Exercises</h3>
+          <h3>Recent Activities</h3>
           {recentActivities.map(r => (
             <ActivityCard key={r.id} activity={r} />
             ))}

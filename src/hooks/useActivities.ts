@@ -29,6 +29,6 @@ export const useActivities = (start?: number, end?: number) => {
 
 export const useRecentActivities = () => {
   const query = db.select().from(activities).orderBy(desc(activities.timestamp)).limit(3);
-  const { data, loading, error, refresh } = useSQLocalQuery<Activity>(query.getSQL());
+  const { data, loading, error, refresh } = useSQLocalQuery<Activity>(query);
   return { recentActivities: data, loading, error, refresh }
 }

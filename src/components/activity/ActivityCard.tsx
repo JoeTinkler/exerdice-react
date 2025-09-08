@@ -88,7 +88,7 @@ export const ActivityCard: React.FC<PropsWithChildren<PropTypes>> = ({ activity 
           {activityTypes.find(type => type.id === activity.type)?.name}
         </ActivityTitle>
         <ActivityMeta>{formatTime(activity.timestamp)}</ActivityMeta>
-        <ActivityMeta>{activity.notes || 'General Exercise'}</ActivityMeta>
+        <ActivityMeta>{activity.notes || '\u00A0'}</ActivityMeta>
       </ActivityInfo>
       <ActivityInfo>
         <ActivityStat>{activity.minutes ?? 'N/A'} min</ActivityStat>
