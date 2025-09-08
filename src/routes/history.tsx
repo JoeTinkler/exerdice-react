@@ -43,7 +43,7 @@ export const HistoryRoute: React.FC = () => {
         <SummaryMetrics />
         <HistoryChart />
         { showAdvancedStats && <AdvancedMetrics />}
-        <StatsToggle onClick={() => setShowAdvancedStats(!showAdvancedStats)}>{showAdvancedStats ? 'Hide' : 'Show'} Advanced stats for nerds</StatsToggle>
+        <StatsToggle onClick={() => setShowAdvancedStats(!showAdvancedStats)}>Show {showAdvancedStats ? 'Less' : 'More'}</StatsToggle>
       </Card>
       <Row>
         <SubHeader>Activity Log</SubHeader>

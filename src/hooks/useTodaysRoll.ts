@@ -1,5 +1,5 @@
 import { rolls, dice_rolls, DiceRollType } from "@db/schema";
-import { addDaysUnix, startOfDayUnix } from "@helpers/date";
+import { addDaysUnix, startOfDayUnix, unixTimestamp } from "@helpers/date";
 import { between, eq } from "drizzle-orm";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { SQLocalContext } from "@providers/sqLocal";
@@ -39,8 +39,8 @@ export const useTodaysRolls = () => {
         .where(between(rolls.timestamp, today, addDaysUnix(today, 1)));
 
       const rollBase = result[0]?.rolls;
-      const modifierRoll = result.filter((r) => r.dice_rolls?.type === DiceRollType.Modifier).map((r) => r.dice_rolls)[0];
-      const activityRolls = result.filter((r) => r.dice_rolls?.type === DiceRollType.Activity).map((r) => r.dice_rolls);
+      const modifierRoll = result.filter((r) => r.dice_rolls?.rollId === rollBase.id && r.dice_rolls?.type === DiceRollType.Modifier).map((r) => r.dice_rolls)[0];
+      const activityRolls = result.filter((r) => r.dice_rolls?.rollId === rollBase.id && r.dice_rolls?.type === DiceRollType.Activity).map((r) => r.dice_rolls);
 
       setRollId(rollBase?.id);
       setRoll(rollBase ? {
@@ -69,7 +69,7 @@ export const useTodaysRolls = () => {
     if (id) {
       await db.delete(dice_rolls).where(eq(dice_rolls.rollId, id));
     } else {
-      const result = await db.insert(rolls).values({ timestamp: today }).returning({ id: rolls.id });
+      const result = await db.insert(rolls).values({ timestamp: unixTimestamp() }).returning({ id: rolls.id });
       if (!result[0]?.id) {
         throw new Error('Could not insert new roll');
       }

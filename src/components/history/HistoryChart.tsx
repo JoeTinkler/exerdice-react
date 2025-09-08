@@ -6,7 +6,6 @@ import styled, { useTheme } from "styled-components";
 
 const ChartCanvas = styled(Line)`
   width: 100%;
-  min-height: 200px;
   height: 30vh;
   border-radius: 8px;
   background: ${({ theme }) => theme.background};
@@ -37,9 +36,10 @@ export const HistoryChart: React.FC = () => {
     background: theme.background,
     axis: theme.colour,
     data: [
-      '#ff6a52',
-      '#2ec4d4',
-      theme.highlightColour
+      '#FB2C36',
+      '#3BB8DB',
+      '#31C950',
+      '#AD46FF'
     ]
   };
 
@@ -103,6 +103,18 @@ export const HistoryChart: React.FC = () => {
       {
         label: 'Total Roll',
         data: chartData.map((d) => d.totalRoll),
+        backgroundColor: colours.data[0],
+        borderColor: colours.data[0],
+      },
+      {
+        label: 'Total Distance',
+        data: chartData.map((d) => d.totalDistance),
+        backgroundColor: colours.data[0],
+        borderColor: colours.data[0],
+      },
+      {
+        label: 'Total Calories',
+        data: chartData.map((d) => d.totalDistance),
         backgroundColor: colours.data[0],
         borderColor: colours.data[0],
       }

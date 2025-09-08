@@ -8,7 +8,9 @@ import { addDaysUnix, daysBetween, toDbFormatUnix, unixTimestamp } from "@helper
 type ActivityRow = {
   date: string;
   totalMinutes: number;
-  totalActivities: number
+  totalActivities: number;
+  totalDistance: number;
+  totalCalories: number;
 }
 
 type RollRow = {
@@ -26,6 +28,8 @@ export const useHistoryChartData = () => {
     date: timestampDate(activities.timestamp),
     totalMinutes: sum(activities.minutes),
     totalActivities: countDistinct(activities.id),
+    totalDistance: sum(activities.distance),
+    totalCalories: sum(activities.calories),
   })
   .from(activities)
   .groupBy(timestampDate(activities.timestamp))

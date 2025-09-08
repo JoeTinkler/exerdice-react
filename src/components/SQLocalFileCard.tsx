@@ -48,7 +48,7 @@ export const SQLocalFileCard: React.FC = () => {
       <CardTitle>Database</CardTitle>
       <Button onClick={onDownload}>Download File</Button>
       <Button onClick={() => inputFile.current?.click()}>Restore from file</Button>
-      <ToggleLabel onClick={() => setShowAdvanced(!showAdvanced)}>{showAdvanced ? 'Hide' : 'Show'} Advanced Actions</ToggleLabel>
+      <ToggleLabel onClick={() => setShowAdvanced(!showAdvanced)}>Show {showAdvanced ? 'Less' : 'More'}</ToggleLabel>
       {showAdvanced && <Button onClick={() => csvInputFile.current?.click()}>Import data from csv file</Button>}
       <input type='file' id='file' ref={inputFile} style={{display: 'none'}} accept=".sqlite3" onChange={onFileSelected} />
       <input type='file' id='csv-file' ref={csvInputFile} style={{display: 'none'}} accept=".csv" onChange={onCSVFileSelected} />
