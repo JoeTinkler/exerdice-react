@@ -1,4 +1,3 @@
-import { Avatar } from "@components/Avatar";
 import { Header } from "@components/ui/common/Header";
 import { Card, CardTitle } from "@components/ui/Card";
 import { Input, Select, Slider } from "@components/ui/Form";
@@ -6,12 +5,11 @@ import { Row } from "@components/ui/common/Layout";
 import { Label, Paragraph } from "@components/ui/common/Text";
 import { ProfileContext } from "@providers/profile";
 import React, { useContext, useState } from "react";
-import { AvatarUrlDialog } from "@components/AvatarUrlDialog";
 import { ThemeContext } from "@providers/theme";
 import { ActivityTypes } from "@components/activity/ActivityTypes";
 import { SQLocalFileCard } from "@components/SQLocalFileCard";
 import { Modal } from "@components/Modal";
-import { SliderContainer, ProfilePicWrapper, ChangePhoto, WarningIcon } from "@components/ui/routes/Profile";
+import { SliderContainer, WarningIcon } from "@components/ui/routes/Profile";
 import { Toggle } from "@components/form/Toggle";
 import { AvatarUpload } from "@components/AvatarUpload";
 
@@ -37,7 +35,6 @@ const offsetToTime = (offset?: number) => {
 
 export const ProfileRoute: React.FC = () => {
   const { profile, updateProfile } = useContext(ProfileContext);
-  const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
   const { colour, setColour, theme, setTheme } = useContext(ThemeContext);
   const [isWarningOpen, setIsWarningOpen] = useState(false);
 
@@ -66,7 +63,7 @@ export const ProfileRoute: React.FC = () => {
           value={profile.modifierDiceSize}
           onChange={(e) => updateProfile({ modifierDiceSize: parseInt(e.target.value) })}
         >
-          {DICE_SIZES.map((size) => (<option value={size}>{size}</option>))}
+          {DICE_SIZES.map((size) => (<option key={`mod-${size}`} value={size}>{size}</option>))}
         </Select>
 
         <Label>Activity Dice Size</Label>
@@ -74,7 +71,7 @@ export const ProfileRoute: React.FC = () => {
           value={profile.exerciseDiceSize}
           onChange={(e) => updateProfile({ exerciseDiceSize: parseInt(e.target.value) })}
         >
-          {DICE_SIZES.map((size) => (<option value={size}>{size}</option>))}
+          {DICE_SIZES.map((size) => (<option key={`act-${size}`} value={size}>{size}</option>))}
         </Select>
 
         <Label>3D Dice</Label>
@@ -118,7 +115,6 @@ export const ProfileRoute: React.FC = () => {
 
       <SQLocalFileCard />
 
-      <AvatarUrlDialog isOpen={isAvatarDialogOpen} onClose={() => setIsAvatarDialogOpen(false)} />
       <Modal isOpen={isWarningOpen} onClose={() => setIsWarningOpen(false)}>
         <Paragraph>Warning! Changing start of day could move some rolls and exercises to different days. It is not recommended to change if you already have a lot of logs</Paragraph>
       </Modal>

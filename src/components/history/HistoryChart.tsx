@@ -1,15 +1,47 @@
 import { HistoryDataContext } from "@providers/history";
-import { CategoryScale, Chart, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from "chart.js";
-import { useContext } from "react";
-import { Line } from "react-chartjs-2";
+import { CategoryScale, Chart, LinearScale, LineElement, PointElement, Title, Tooltip, BarElement } from "chart.js";
+import { CSSProperties, useContext, useEffect } from "react";
+import { Line, Bar,  } from "react-chartjs-2";
 import styled, { useTheme } from "styled-components";
 
-const ChartCanvas = styled(Line)`
+const LineChart = styled(Line)`
   width: 100%;
-  height: 30vh;
   border-radius: 8px;
   background: ${({ theme }) => theme.background};
   padding: 5px;
+`;
+
+const BarChart = styled(Bar)`
+  width: 100%;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.background};
+  padding: 5px;
+`;
+
+const Legend = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;
+
+const LegendItem = styled.p`
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  justify-content: center;
+  align-items: center;
+  color: ${({ theme }) => theme.secondaryColour}
+`;
+
+const LegendDot = styled.div<{ $colour: CSSProperties['background'] }>`
+  background-color: ${({ $colour }) => $colour};
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 2px;
 `;
 
 type ChartColours = {
@@ -23,13 +55,13 @@ Chart.register(
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 )
 
 export const HistoryChart: React.FC = () => {
-  const { chartData } = useContext(HistoryDataContext);
+  const { chartData, chartOptions } = useContext(HistoryDataContext);
   const theme = useTheme();
 
   const colours: ChartColours = {
@@ -47,16 +79,6 @@ export const HistoryChart: React.FC = () => {
 
   const options = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: 'chartArea',
-        labels: {
-          usePointStyle: true,
-          boxWidth: 5,
-          boxHeight: 5
-        }
-      },
-    },
     background: colours.background,
     elements: {
       line: {
@@ -91,39 +113,52 @@ export const HistoryChart: React.FC = () => {
     }
   };
 
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Total Minutes',
-        data: chartData.map((d) => d.totalMinutes),
-        backgroundColor: colours.data[1],
-        borderColor: colours.data[1],
-      },
-      {
-        label: 'Total Roll',
-        data: chartData.map((d) => d.totalRoll),
-        backgroundColor: colours.data[0],
-        borderColor: colours.data[0],
-      },
-      {
-        label: 'Total Distance',
-        data: chartData.map((d) => d.totalDistance),
-        backgroundColor: colours.data[0],
-        borderColor: colours.data[0],
-      },
-      {
-        label: 'Total Calories',
-        data: chartData.map((d) => d.totalDistance),
-        backgroundColor: colours.data[0],
-        borderColor: colours.data[0],
-      }
-    ],
-  };
+  const datasets = [];
+  if (chartOptions.columns.minutes) {
+    datasets.push({
+      label: 'Total Minutes',
+      data: chartData.map((d) => d.totalMinutes),
+      backgroundColor: colours.data[1],
+      borderColor: colours.data[1],
+    });
+  }
+
+  if (chartOptions.columns.rolls) {
+    datasets.push({
+      label: 'Total Roll',
+      data: chartData.map((d) => d.totalRoll),
+      backgroundColor: colours.data[0],
+      borderColor: colours.data[0],
+    });
+  }
+
+  if (chartOptions.columns.distance) {
+    datasets.push({
+      label: 'Total Distance',
+      data: chartData.map((d) => d.totalDistance),
+      backgroundColor: colours.data[2],
+      borderColor: colours.data[2],
+    });
+  }
+
+  if (chartOptions.columns.calories) {
+    datasets.push({
+      label: 'Total Calories',
+      data: chartData.map((d) => d.totalCalories),
+      backgroundColor: colours.data[3],
+      borderColor: colours.data[3],
+    });
+  }
 
   return (
     <>
-      <ChartCanvas options={options as any} data={data} />
+      {chartOptions.type === 'line' && <LineChart options={options as any} data={{ labels, datasets }} />}
+      {chartOptions.type === 'bar' && <BarChart options={options as any} data={{ labels, datasets }} />}
+      <Legend>
+        {datasets.map((d) => (
+          <LegendItem key={d.label}><LegendDot $colour={d.backgroundColor}></LegendDot>{d.label}</LegendItem>
+        ))}
+      </Legend>
     </>
   )
 }

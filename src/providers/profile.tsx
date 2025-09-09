@@ -1,4 +1,5 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { useLocalState } from "@hooks/useLocalState";
+import { PropsWithChildren } from "react";
 import { createContext } from 'react';
 
 const STORAGE_KEY = 'miro_exerdice_profile';
@@ -26,32 +27,16 @@ type ProfileContextData = {
   updateProfile: (profile: Partial<ProfileData>) => void;
 }
 
-const fetchProfile = (): ProfileData => {
-  const storedProfile = localStorage.getItem(STORAGE_KEY);
-  return storedProfile ? JSON.parse(storedProfile) : DEFAULT_DATA;
-}
-
-const storeProfile = (profile: ProfileData) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
-}
-
 export const ProfileContext = createContext<ProfileContextData>({
   profile: DEFAULT_DATA,
   updateProfile: () => {}
 });
 
 export const ProfileProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [profile, setProfile] = useState(fetchProfile());
-  const updateProfile = (data: Partial<ProfileData>) => {
-    setProfile({ ...profile, ...data });
-  };
-
-  useEffect(() => {
-    storeProfile(profile);
-  }, [profile]);
+  const { value: profile, mergeValue } = useLocalState<ProfileData>(STORAGE_KEY, DEFAULT_DATA);
 
   return (
-  <ProfileContext.Provider value={{ profile, updateProfile }}>
+  <ProfileContext.Provider value={{ profile, updateProfile: mergeValue }}>
     {children}
   </ProfileContext.Provider>
   );

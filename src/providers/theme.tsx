@@ -21,7 +21,7 @@ export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const storedTheme = localStorage.getItem('theme') as Theme | null;
   const storedColour = localStorage.getItem('themeColour');
   const [theme, setTheme] = useState<Theme>(storedTheme ?? 'dark');
-  const [colour, setColour] = useState(storedColour ?? '#ff5733')
+  const [colour, setColour] = useState(storedColour ?? '#0c8856')
   const handleSetTheme = (theme: Theme) => {
     setTheme(theme);
     localStorage.setItem('theme', theme);

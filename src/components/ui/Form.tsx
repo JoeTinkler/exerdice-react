@@ -61,8 +61,34 @@ export const CheckboxLabel = styled.label`
   align-items: center;
   gap: 8px;
   cursor: pointer;
+`;
 
-  input {
-    accent-color: ${({ theme }) => theme.highlightColour};
+export const Checkbox = styled.input`
+  appearance: none;
+  margin: 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid ${({ theme }) => theme.highlightColour};
+  background: ${({ theme }) => theme.input.background};
+  cursor: pointer;
+
+  &:checked {
+    background: ${({ theme }) => theme.highlightColour};
+  }
+`;
+
+export const Radiobox = styled.input`
+  appearance: none;
+  margin: 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.highlightColour};
+  background: ${({ theme }) => theme.input.background};
+  cursor: pointer;
+
+  &:checked {
+    background: ${({ theme }) => theme.highlightColour};
   }
 `;

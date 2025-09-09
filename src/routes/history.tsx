@@ -13,6 +13,7 @@ import { HistoryDataContext } from "@providers/history";
 import { SummaryMetrics } from "@components/history/SummaryMetrics";
 import { SummaryHeader } from "@components/history/SummaryHeader";
 import { AdvancedMetrics } from "@components/history/AdvancedMetrics";
+import { ConfigureChart } from "@components/history/ChartOptions";
 
 const defaultFilters = () => ({
   year: new Date().getFullYear(),
@@ -42,8 +43,9 @@ export const HistoryRoute: React.FC = () => {
         <SummaryHeader />
         <SummaryMetrics />
         <HistoryChart />
-        { showAdvancedStats && <AdvancedMetrics />}
         <StatsToggle onClick={() => setShowAdvancedStats(!showAdvancedStats)}>Show {showAdvancedStats ? 'Less' : 'More'}</StatsToggle>
+        { showAdvancedStats && <AdvancedMetrics />}
+        { showAdvancedStats && <ConfigureChart />}
       </Card>
       <Row>
         <SubHeader>Activity Log</SubHeader>
