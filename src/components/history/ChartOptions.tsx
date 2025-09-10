@@ -1,5 +1,4 @@
 import { Radiobox } from "@components/form/Radiobox";
-import { Toggle } from "@components/form/Toggle";
 import { Label } from "@components/ui/common/Text";
 import { Checkbox, CheckboxGroup, CheckboxLabel, Select } from "@components/ui/Form";
 import { ChartOptions, HistoryDataContext } from "@providers/history"
@@ -25,8 +24,6 @@ export const ConfigureChart: React.FC = () => {
   }
 
   const onChangeColumn = (patch: Partial<ChartOptions['columns']>) => {
-    console.log(chartOptions);
-    console.log(patch);
     setChartOptions({ ...chartOptions, columns: { ...chartOptions.columns, ...patch } });
   }
 

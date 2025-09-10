@@ -26,6 +26,7 @@ export const Metrics = styled.div`
 
 export const Metric = styled.div`
   display: block;
+  flex: 1;
 `;
 
 export const MetricNumber = styled.span<{ $highlight?: boolean }>`

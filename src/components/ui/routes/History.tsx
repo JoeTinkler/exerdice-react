@@ -31,6 +31,7 @@ export const SummaryMetricsContainer = styled.div`
   div {
     text-align: center;
     font-size: 14px;
+    flex: 1;
   }
   span {
     display: block;
@@ -57,4 +58,9 @@ export const ActivitySeparator = styled.hr`
   height: 1px;
   border: 0;
   margin: 15px 0;
+`;
+
+export const NoActivitiesLabel = styled(Paragraph)`
+  text-align: center;
+  margin: 20px 0;
 `;

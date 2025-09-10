@@ -4,7 +4,7 @@ import { Row } from "@components/ui/common/Layout";
 import { Header } from "@components/ui/common/Header";
 import { Card } from "@components/ui/Card";
 import { SubHeader } from "@components/ui/common/Header";
-import { ActivitySeparator, StatsToggle, ToggleButton, ToggleButtons } from "@components/ui/routes/History";
+import { ActivitySeparator, NoActivitiesLabel, StatsToggle, ToggleButton, ToggleButtons } from "@components/ui/routes/History";
 import { Calendar } from "@components/Calendar";
 import { Activity } from "@db/schema";
 import { ActivityCard } from "@components/activity/ActivityCard";
@@ -55,13 +55,18 @@ export const HistoryRoute: React.FC = () => {
         </ToggleButtons>
       </Row>
       {showCalendar && <Calendar day={filters.day!} month={filters.month} year={filters.year} onSelect={(day, month, year) => { setFilters({ ...filters, day, month, year })}} />}
-      {showList && activityDays.map((day, i) => (
-        <React.Fragment key={day.date}>
-          <DaySummary date={day.date} roll={day.roll} activities={day.activities} />
-          {day.activities.map((a) => (<ActivityCard key={a.id} activity={a as Activity} />))}
-          {i !== activityDays.length -1 && <ActivitySeparator />}
-        </React.Fragment>
-      ))}
+      {showList &&
+        <>
+          {activityDays.length === 0 && <NoActivitiesLabel>No activities logged for this period.</NoActivitiesLabel>}
+          {activityDays.map((day, i) => (
+            <React.Fragment key={day.date}>
+              <DaySummary date={day.date} roll={day.roll} activities={day.activities} />
+              {day.activities.map((a) => (<ActivityCard key={a.id} activity={a as Activity} />))}
+              {i !== activityDays.length -1 && <ActivitySeparator />}
+            </React.Fragment>
+          ))}
+        </>
+      }
     </>
   );
 }

@@ -38,8 +38,7 @@ Designed to used on mobile devices
 
 ## Screenshot
 
-!["Screenshot roll page"](/screenshots/Screenshot_Roll.png)
-
+!["Animated image of roll page"](/screenshots/Animation_Roll.webp)
 
 ## Techologies uses
 

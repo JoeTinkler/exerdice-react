@@ -6,7 +6,7 @@ import { Paragraph } from "@components/ui/common/Text";
 import { useContext, useState } from "react";
 import { Today } from "@components/Today";
 import { Button } from "@components/ui/common/Button";
-import { ButtonRow, DiceBox, InfoRow, ManualLink, ResultBox, ResultText, RolledDice, TipIcon } from "@components/ui/routes/Roll";
+import { ButtonRow, DiceBox, DiceWrapper, DiceWrapperLabel, InfoRow, ManualLink, ResultBox, ResultText, RolledDice, TipIcon } from "@components/ui/routes/Roll";
 import { ProfileContext } from "@providers/profile";
 import { diceShape } from "@components/ui/Dice";
 import { ManualDiceDialog } from "@components/ManualDiceDialog";
@@ -35,8 +35,14 @@ export const RollRoute: React.FC = () => {
           <DiceBox>
             {hasRolled &&
               <>
-                <RolledDice $shape={diceShape(roll!.modifierRoll.max)} $highlight={true}>{roll!.modifierRoll.value}</RolledDice>
-                {roll!.activityRolls?.map((r, i) => (<RolledDice $shape={diceShape(r.max)} $highlight={true} key={i}>{r.value}</RolledDice>))}
+                <DiceWrapper>
+                  <DiceWrapperLabel>Modifier</DiceWrapperLabel>
+                  <RolledDice $shape={diceShape(roll!.modifierRoll.max)} $highlight={true}>{roll!.modifierRoll.value}</RolledDice>
+                </DiceWrapper>
+
+
+                  {roll!.activityRolls?.map((r, i) => (<RolledDice $shape={diceShape(r.max)} $highlight={true} key={i}>{r.value}</RolledDice>))}
+   
               </>
             }
             {!hasRolled && <>Not Rolled</>}
@@ -52,7 +58,7 @@ export const RollRoute: React.FC = () => {
             }
             <ButtonRow>
               <Button $size="medium" onClick={rollDice}>Roll {hasRolled ? 'Again' : 'to Start'}</Button>
-              <Button $size="medium" $primary onClick={acceptRoll} disabled={!hasRolled}>Accept</Button>
+              {hasRolled && <Button $size="medium" $primary onClick={acceptRoll}>Accept</Button>}
             </ButtonRow>
           </ResultBox>
         </>

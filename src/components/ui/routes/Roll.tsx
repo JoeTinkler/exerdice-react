@@ -21,10 +21,40 @@ export const DiceBox = styled(Card)`
   margin: 20px 0;
 `;
 
+export const DiceWrapper = styled.div`
+  border: 1px dashed ${({ theme }) => theme.highlightColour};
+  border-radius: 5px;
+  position: relative;
+  padding: 0;
+  margin: 15px 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+
+  div {
+    margin: 1px;
+  }
+`;
+
+export const DiceWrapperLabel = styled.span`
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: -10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: ${({ theme }) => theme.highlightColour};
+`;
+
 export const RolledDice = styled(Dice)`
   font-size: 20px;
   width: 55px;
   height: 55px;
+  margin: 10px 3px;
 `;
 
 export const ResultBox = styled.div`

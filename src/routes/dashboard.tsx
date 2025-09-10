@@ -71,22 +71,10 @@ export const DashboardRoute: React.FC = () => {
       {!isRestDay && hasRolled && <NavigationButton to="/log" $primary={true} $size={'large'}>Log Exercise</NavigationButton>}
       {!hasRolled && !isRestDay && profile.weeklyRestDays > weekRestCount &&
         <>
-          <Button onClick={() => setShowRest(true)}>Take A Rest Day</Button>
+          <Button $size="medium" onClick={() => setShowRest(true)}>Take A Rest Day</Button>
           <RemainingRestsLabel>{profile.weeklyRestDays - weekRestCount} / {profile.weeklyRestDays} rest days remaining</RemainingRestsLabel>
         </>
       }
-      <Grid>
-        <GridCard to="/history">
-          <HistoryIcon />
-          <strong>Activity History</strong>
-          View past activities
-        </GridCard>
-        <GridCard to="/profile">
-          <ProfileIcon />
-          <strong>Profile</strong>
-          Settings & goals
-        </GridCard>
-      </Grid>
       <Dialog
         title="Confirm Rest Day"
         isOpen={showRest}
