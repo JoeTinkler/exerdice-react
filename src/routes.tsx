@@ -14,6 +14,8 @@ import { GlobalStyle } from '@components/Global';
 import { RollDataProvider } from '@providers/roll';
 import { Route } from '@components/Route';
 import { ResolutionWarning } from '@components/ui/ResolutionWarning';
+import { Toasts } from '@components/toast/toasts';
+import { ToastProvider } from '@components/toast/provider';
 
 const router = createBrowserRouter([
   {
@@ -60,7 +62,10 @@ export const Routes: React.FC = () => {
     <>
       <GlobalStyle />
       <ResolutionWarning>Exerdice was designed for mobile devices - for the best experience use a mobile device</ResolutionWarning>
-      <RouterProvider router={router} />
+      <ToastProvider>
+        <Toasts />
+        <RouterProvider router={router} />
+      </ToastProvider>
     </>
   );
 }

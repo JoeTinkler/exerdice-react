@@ -7,7 +7,7 @@ type ActivityTypesContextData = {
   activityTypes: ActivityType[];
   loading: boolean;
   error?: string;
-  insert: (activityType: InsertActivityType, sortCompare?: (a: ActivityType, b: ActivityType) => number) => void;
+  insert: (activityType: InsertActivityType, sortCompare?: (a: ActivityType, b: ActivityType) => number) => Promise<number | undefined>;
   update: (id: number, activityType: Partial<InsertActivityType>) => void;
   remove: (id: number) => void;
 }
@@ -15,7 +15,7 @@ type ActivityTypesContextData = {
 export const ActivityTypesContext = createContext<ActivityTypesContextData>({
   activityTypes: [],
   loading: false,
-  insert: () => { },
+  insert: () => Promise.resolve(0),
   update: () => { },
   remove: () => { }
 });

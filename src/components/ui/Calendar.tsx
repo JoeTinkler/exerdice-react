@@ -72,8 +72,5 @@ export const Day = styled.div<{ $data?: DayData }>`
   }};
   text-align: center;
   background-size: 150%;
-  animation-name: ${MoveBackground};
-  animation-duration: 12s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
+  animation: ${MoveBackground}; 12s ease-in-out infinite;
 `;

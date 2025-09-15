@@ -40,5 +40,17 @@ type ThemeOptions = {
   dice: {
     background: React.CSSProperties['background'];
     colour: React.CSSProperties['color'];
+  },
+  toast: {
+    info: React.CSSProperties['background'];
+    success: React.CSSProperties['background'];
+    error: React.CSSProperties['background'];
+  },
+  syntax: {
+    keyword: React.CSSProperties['color'];
+    function: React.CSSProperties['color'];
+    number: React.CSSProperties['color'];
+    string: React.CSSProperties['color'];
+    default: React.CSSProperties['color'];
   }
 }

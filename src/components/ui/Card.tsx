@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Paragraph } from "./common/Text";
+import ChevronAsset from "@assets/icons/chevron-down.svg?react";
+import { Row } from "@components/ui/common/Layout";
+
+export const ChevronIcon = styled(ChevronAsset)<{ $flip: boolean }>`
+  transform: rotate(${({ $flip }) => $flip ? '180' : '0'}deg);
+  width: 25px;
+  height: 25px;
+  margin: 0 auto;
+`;
+
+export const CardTitleRow = styled(Row)`
+  cursor: pointer;
+  margin: 0;
+`;
 
 export const Card = styled.div`
   background: ${({ theme }) => theme.card.background};
@@ -11,6 +25,7 @@ export const Card = styled.div`
 
 export const CardTitle = styled.h3`
   font-size: 20px;
+  width: 100%;
 `;
 
 export const CardParagraph = styled(Paragraph)`

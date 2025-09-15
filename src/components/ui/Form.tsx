@@ -30,6 +30,10 @@ export const Select = styled.select`
   color: ${({ theme }) => theme.input.colour};
   font-size: 14px;
   appearance: none;
+
+  &:focus: {
+    outline: 2px solid ${({ theme }) => theme.highlightColour};
+  }
 `;
 
 export const TextArea = styled.textarea`
@@ -42,6 +46,10 @@ export const TextArea = styled.textarea`
   font-size: 14px;
   height: 80px;
   resize: none;
+
+  &:focus: {
+    outline: 2px solid ${({ theme }) => theme.highlightColour};
+  }
 `;
 
 export const Slider = styled.input`

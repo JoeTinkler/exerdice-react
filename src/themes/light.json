@@ -38,5 +38,17 @@
     "selectedColour": "#ffffff",
     "secondaryBackground": "#ffffff",
     "secondaryColour": "#000000"
+  },
+  "toast": {
+    "info": "#3094FF",
+    "success": "#08872B",
+    "error": "#c53211"
+  },
+  "syntax": {
+    "keyword": "#cf222e",
+    "function": "#6639ba",
+    "number": "#0550ae",
+    "string": "#0a3069",
+    "default": "#1f2328"
   }
 }

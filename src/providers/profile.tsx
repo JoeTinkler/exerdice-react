@@ -8,7 +8,8 @@ const DEFAULT_DATA: ProfileData = {
   exerciseDiceSize: 20,
   weeklyRestDays: 3,
   startOfDayOffset: 0,
-  show3dDice: false
+  show3dDice: false,
+  developer: false,
 }
 
 type ProfileData = {
@@ -20,6 +21,7 @@ type ProfileData = {
   exerciseDiceSize: number;
   startOfDayOffset: number;
   show3dDice: boolean;
+  developer: boolean;
 }
 
 type ProfileContextData = {

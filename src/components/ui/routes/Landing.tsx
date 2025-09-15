@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { Link } from "react-router-dom";
 import HeroAsset from "@assets/exerdice-hero.svg?react";
 
@@ -90,8 +90,44 @@ export const Caption = styled.div`
   font-size: 14px;
 `;
 
-export const ExerdiceHero = styled(HeroAsset)`
+const pulse = keyframes`
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+`;
+
+const rotate = keyframes`
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const glow = keyframes`
+  0% { fill: #1a1a1a; }
+  40% { fill: #1a1a1a; }
+  45% { fill: #15c580; }
+  65% { fill: #1a1a1a; }
+  100% { fill: #1a1a1a; }
+`;
+
+export const ExerdiceHero = styled(HeroAsset)<{ $animate: boolean }>`
   width: 100%;
   color: #1a1a1a;
   margin: 0 auto;
+
+  ${({ $animate}) => $animate ? css`
+    .hero-stopwatch-frame {
+      transform-origin: 2.5% 4.3%;
+      animation: ${rotate} 5s linear infinite;
+      position: relative;
+    }
+
+    .hero-heart {
+      animation: ${pulse} 1.5s ease infinite;
+    }
+
+    .hero-dice {
+      animation: ${glow} 3s linear infinite;
+    }
+  ` : ''}
 `;

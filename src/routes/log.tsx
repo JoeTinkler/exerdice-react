@@ -15,6 +15,7 @@ import { Activity, ActivityType } from "@db/schema";
 import { useRecentActivities } from "@hooks/useActivities";
 import { ActivityWheelModal } from "@components/activity/ActivityWheel";
 import { ActivityTypesContext } from "@providers/activityTypes";
+import { ToastContext } from "@components/toast/provider";
 
 const parseDateInputValue = (value: string) => {
   var date = new Date(value);
@@ -31,6 +32,7 @@ const timestampToDateInputValue = (value: number) => {
 export const LogRoute: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToast } = useContext(ToastContext);
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [showRandomizeModal, setShowRandomizeModal] = useState(false);
@@ -50,6 +52,7 @@ export const LogRoute: React.FC = () => {
   const onSave = useCallback(() => {
     save(activity, () => {
       navigate(id ? '/history' : '/dashboard');
+      addToast('Log saved', 'success', 3);
     });
   }, [id, activity]);
 
@@ -57,6 +60,7 @@ export const LogRoute: React.FC = () => {
     await remove();
     setIsDeleteOpen(false);
     navigate('/history');
+    addToast('Log deleted', 'success', 3);
   }, [id, activity]);
 
   const handleAcceptRandom = (type: ActivityType) => {

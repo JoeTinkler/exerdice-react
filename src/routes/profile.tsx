@@ -9,7 +9,7 @@ import { ThemeContext } from "@providers/theme";
 import { ActivityTypes } from "@components/activity/ActivityTypes";
 import { SQLocalFileCard } from "@components/SQLocalFileCard";
 import { Modal } from "@components/Modal";
-import { SliderContainer, WarningIcon } from "@components/ui/routes/Profile";
+import { DeveloperLabel, SliderContainer, WarningIcon } from "@components/ui/routes/Profile";
 import { Toggle } from "@components/form/Toggle";
 import { AvatarUpload } from "@components/AvatarUpload";
 
@@ -42,6 +42,7 @@ export const ProfileRoute: React.FC = () => {
     <>
       <Row>
         <Header>Profile Settings</Header>
+        { profile.developer && <DeveloperLabel>Developer</DeveloperLabel> }
       </Row>
 
       <Card>

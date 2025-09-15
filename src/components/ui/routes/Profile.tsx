@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import WarningIconAsset from '@assets/icons/warning.svg?react';
+import { Column } from "../common/Layout";
 
 export const ProfilePicWrapper = styled.div`
   display: flex;
@@ -30,4 +31,11 @@ export const WarningIcon = styled(WarningIconAsset)`
   height: 15px;
   cursor: pointer;
   display: inline;
+`;
+
+export const DeveloperLabel = styled(Column)`
+  margin-left: auto;
+  color: ${({ theme }) => theme.highlightColour};
+  font-size: 14px;
+  align-items: end;
 `;
