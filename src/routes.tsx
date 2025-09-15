@@ -49,11 +49,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/sqlocal',
-    element: <>
-      <RouteWrapper>
-        <SQLocal />
-      </RouteWrapper>
-    </>
+    element: (<Route providers={[ActivityTypesProvider]}><SQLocal /></Route>)
   }
 ]);
 

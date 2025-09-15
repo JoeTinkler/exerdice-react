@@ -47,11 +47,8 @@ export const ProfileRoute: React.FC = () => {
 
       <Card>
         <CardTitle>Personal Information</CardTitle>
-        <Label>Full Name</Label>
+        <Label>Name</Label>
         <Input value={profile.name} placeholder="Sam Jogsalot" onChange={(e) => updateProfile({ name: e.target.value })} />
-
-        <Label>Email Address</Label>
-        <Input value={profile.email} placeholder="s.jogsalot@exerdice.app" onChange={(e) => updateProfile({ email: e.target.value })} />
 
         <Label>Profile Picture</Label>
         <AvatarUpload />

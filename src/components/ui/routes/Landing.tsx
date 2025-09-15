@@ -3,6 +3,16 @@ import styled, { keyframes, css } from "styled-components";
 import { Link } from "react-router-dom";
 import HeroAsset from "@assets/exerdice-hero.svg?react";
 
+export const Combo = styled.div`
+  position: fixed;
+  top: 2px;
+  right: 2px;
+  font-size: 5px;
+  z-index: 999;
+  color: ${({ theme }) => theme.secondaryColour};
+  opacity: 0.2;
+`;
+
 export const HeroCard = styled.div`
   background: ${({ theme }) => theme.card.background};
   position: relative;
@@ -98,19 +108,17 @@ const pulse = keyframes`
 
 const rotate = keyframes`
   0% { transform: rotate(0deg); }
-  50% { transform: rotate(180deg); }
   100% { transform: rotate(360deg); }
 `;
 
 const glow = keyframes`
-  0% { fill: #1a1a1a; }
   40% { fill: #1a1a1a; }
   45% { fill: #15c580; }
   65% { fill: #1a1a1a; }
-  100% { fill: #1a1a1a; }
 `;
 
 export const ExerdiceHero = styled(HeroAsset)<{ $animate: boolean }>`
+  user-select: none;
   width: 100%;
   color: #1a1a1a;
   margin: 0 auto;
@@ -118,7 +126,7 @@ export const ExerdiceHero = styled(HeroAsset)<{ $animate: boolean }>`
   ${({ $animate}) => $animate ? css`
     .hero-stopwatch-frame {
       transform-origin: 2.5% 4.3%;
-      animation: ${rotate} 5s linear infinite;
+      animation: ${rotate} 2.5s linear infinite;
       position: relative;
     }
 
@@ -130,4 +138,8 @@ export const ExerdiceHero = styled(HeroAsset)<{ $animate: boolean }>`
       animation: ${glow} 3s linear infinite;
     }
   ` : ''}
+`;
+
+export const TipsWrapper = styled.div`
+  margin: 20px;
 `;

@@ -8,7 +8,7 @@ const DEFAULT_DATA: ProfileData = {
   exerciseDiceSize: 20,
   weeklyRestDays: 3,
   startOfDayOffset: 0,
-  show3dDice: false,
+  show3dDice: true,
   developer: false,
 }
 
